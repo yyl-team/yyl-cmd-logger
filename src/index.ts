@@ -1,5 +1,4 @@
-import { ChalkFunction } from 'chalk'
-export type LogType = 'info' | 'warn' | 'error' | 'success' | 'cmd' | 'add' | 'del' | 'update'
+import chalk, { ChalkFunction } from 'chalk'
 
 export type LogLevel = 0 | 1 | 2
 
@@ -8,8 +7,33 @@ export type ProgressType = 'start' | 'finished' | number
 /** type 类型 */
 export interface TypeObject {
   name: string
-  sortName: string
+  shortName: string
   color: ChalkFunction
+}
+
+/** 日志类型 */
+export type LogType = keyof BaseType
+
+/** 基础类型 */
+export interface BaseType {
+  info: TypeObject
+  warn: TypeObject
+  error: TypeObject
+  success: TypeObject
+  cmd: TypeObject
+  add: TypeObject
+  del: TypeObject
+  update: TypeObject
+  [key: string]: TypeObject
+}
+
+export interface ExtendType {
+  [key: string]: TypeObject
+}
+
+export interface ProgressInfo {
+  icons: string[]
+  shortIcons: string[]
 }
 
 /** logger - 配置 */
@@ -19,11 +43,12 @@ export interface YylCmdLoggerOption {
   /** 是否进行 type 简化 */
   lite?: boolean
   /** 附加 type */
-  extendType?: TypeObject[]
+  type?: ExtendType
   /** 关键字高亮 */
   keywordHighlight?: {
     [key: string]: ChalkFunction
   }
+  progressInfo?: ProgressInfo
 }
 
 /** logger - 属性 */
@@ -31,7 +56,55 @@ type YylCmdLoggerProperty = Required<YylCmdLoggerOption>
 
 /** logger 对象 */
 export class YylCmdLogger<T extends string = ''> {
-  extendType: YylCmdLoggerProperty['extendType'] = []
+  type: BaseType = {
+    info: {
+      name: 'INFO',
+      shortName: 'i',
+      color: chalk.bgBlack.gray
+    },
+    warn: {
+      name: 'WARN',
+      shortName: '!',
+      color: chalk.bgYellow.white
+    },
+    error: {
+      name: 'ERR',
+      shortName: 'x',
+      color: chalk.bgRed.white
+    },
+    success: {
+      name: 'PASS',
+      shortName: 'Y',
+      color: chalk.bgCyan.white
+    },
+    del: {
+      name: 'DEL',
+      shortName: '-',
+      color: chalk.bgGray.black
+    },
+    add: {
+      name: 'ADD',
+      shortName: '+',
+      color: chalk.bgBlue.white
+    },
+    update: {
+      name: 'UPDT',
+      shortName: '~',
+      color: chalk.bgMagenta.white
+    },
+    cmd: {
+      name: 'CMD>',
+      shortName: '>',
+      color: chalk.bgBlack.white
+    }
+  }
+
+  /** progress icon 信息 */
+  progressInfo: YylCmdLoggerProperty['progressInfo'] = {
+    icons: ['L---', '-O--', '--A-', '---D'],
+    shortIcons: ['L', 'O', 'A', 'D']
+  }
+
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
   lite: YylCmdLoggerProperty['lite'] = true
   keywordHighlight: YylCmdLoggerProperty['keywordHighlight'] = {}
@@ -42,8 +115,11 @@ export class YylCmdLogger<T extends string = ''> {
   progressPercent: number = 0
 
   constructor(op?: YylCmdLoggerOption) {
-    if (op?.extendType) {
-      this.extendType = op?.extendType
+    if (op?.type) {
+      this.type = {
+        ...this.type,
+        ...op.type
+      }
     }
     if (op?.logLevel !== undefined) {
       this.logLevel = op.logLevel
