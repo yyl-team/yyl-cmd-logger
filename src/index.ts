@@ -282,7 +282,7 @@ export class YylCmdLogger<T extends string = ''> {
     // 第二行标题
     const subfix = lite
       ? iTypeInfo.shortColor(makeSpace(getStrSize(iTypeInfo.shortName)))
-      : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name)))
+      : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name) + 2))
     const prefixSize = getStrSize(prefix)
     const contentSize = columnSize - prefixSize - 2
 

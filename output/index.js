@@ -1898,6 +1898,8 @@ process.stdout.on('resize', () => {
     COLUMNS = process.stdout.columns || 80;
 });
 const COLOR_REG = /(\u001b\[\d+m|\033\[[0-9;]+m)+/g;
+/** 中文适配 */
+const CHINESE_REG = /[^\x00-\x80]/g;
 
 /** 创建多个字符串 */
 function buildChar(char, num) {
@@ -1941,7 +1943,8 @@ function decolor(ctx) {
 }
 /** 获取带颜色的字符串长度 */
 function getStrSize(str) {
-    return decolor(str).length;
+    const matchChats = str.match(CHINESE_REG) || [];
+    return decolor(str).length + matchChats.length;
 }
 function substr(str, begin, len) {
     const dos = [];
@@ -1980,21 +1983,21 @@ function substr(str, begin, len) {
         if (isEnd) {
             return;
         }
-        const strLen = iStr.length;
+        const strLen = getStrSize(iStr);
         if (!isBegin) {
             if (begin >= point && begin < point + strLen) {
                 if (i % 2 !== 0) {
                     r = `${dos[i - 1]}`;
                 }
                 if (begin + iLen >= point && begin + iLen <= point + strLen) {
-                    r = `${r}${iStr.substr(begin - point, begin + iLen - point)}`;
+                    r = `${r}${iStr.substr(getRealIndex(iStr, begin - point), getRealIndex(iStr, begin + iLen - point))}`;
                     if (i % 2 !== 0 && i < dos.length) {
                         r = `${r}${dos[i]}`;
                     }
                     isEnd = true;
                 }
                 else {
-                    r = `${r}${iStr.substr(begin - point)}`;
+                    r = `${r}${iStr.substr(getRealIndex(iStr, begin - point))}`;
                 }
                 isBegin = true;
             }
@@ -2002,7 +2005,7 @@ function substr(str, begin, len) {
         else {
             if (begin + iLen >= point && begin + iLen <= point + strLen) {
                 // is end
-                r = `${r}${dos[i - 1]}${iStr.substr(0, begin + iLen - point)}`;
+                r = `${r}${dos[i - 1]}${iStr.substr(0, getRealIndex(iStr, begin + iLen - point))}`;
                 if (i % 2 !== 0 && i < dos.length) {
                     r = `${r}${dos[i]}`;
                 }
@@ -2018,7 +2021,7 @@ function substr(str, begin, len) {
     });
     return r;
 }
-/** 字符不换行处理 */
+/** 字符换行处理 */
 function strWrap(str, size, indent) {
     const r = [];
     const lines = `${str}`
@@ -2067,6 +2070,24 @@ function highlight(str, keywordMap) {
         const color = keywordMap[keyword];
         r = replaceKeyword(r, keyword, color(keyword));
     });
+    return r;
+}
+function getRealIndex(str, index) {
+    let r = 0;
+    let count = 0;
+    for (let i = 0; i <= index && i < str.length; i++) {
+        let add = 1;
+        if (str[i].match(CHINESE_REG)) {
+            add = 2;
+        }
+        if (count + add > index) {
+            r = i;
+            break;
+        }
+        else {
+            count += add;
+        }
+    }
     return r;
 }
 
@@ -2222,7 +2243,7 @@ class YylCmdLogger {
         // 第二行标题
         const subfix = lite
             ? iTypeInfo.shortColor(makeSpace(getStrSize(iTypeInfo.shortName)))
-            : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name)));
+            : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name) + 2));
         const prefixSize = getStrSize(prefix);
         const contentSize = columnSize - prefixSize - 2;
         let fArgs = [];

@@ -1,5 +1,5 @@
 import path from 'path'
-import { COLOR_REG } from './const'
+import { CHINESE_REG, COLOR_REG } from './const'
 import { ChalkFunction } from 'chalk'
 
 /** 创建多个字符串 */
@@ -64,7 +64,9 @@ export function decolor(ctx: string | string[]) {
 
 /** 获取带颜色的字符串长度 */
 export function getStrSize(str: string) {
-  return decolor(str).length
+  const matchChats = str.match(CHINESE_REG) || []
+
+  return decolor(str).length + matchChats.length
 }
 
 /** 格式化文字-配置 */
@@ -143,11 +145,12 @@ export function substr(str: string, begin: number, len?: number) {
   let point = 0
   let isBegin = false
   let isEnd = false
+
   strArr.forEach((iStr, i) => {
     if (isEnd) {
       return
     }
-    const strLen = iStr.length
+    const strLen = getStrSize(iStr)
 
     if (!isBegin) {
       if (begin >= point && begin < point + strLen) {
@@ -155,13 +158,16 @@ export function substr(str: string, begin: number, len?: number) {
           r = `${dos[i - 1]}`
         }
         if (begin + iLen >= point && begin + iLen <= point + strLen) {
-          r = `${r}${iStr.substr(begin - point, begin + iLen - point)}`
+          r = `${r}${iStr.substr(
+            getRealIndex(iStr, begin - point),
+            getRealIndex(iStr, begin + iLen - point)
+          )}`
           if (i % 2 !== 0 && i < dos.length) {
             r = `${r}${dos[i]}`
           }
           isEnd = true
         } else {
-          r = `${r}${iStr.substr(begin - point)}`
+          r = `${r}${iStr.substr(getRealIndex(iStr, begin - point))}`
         }
 
         isBegin = true
@@ -169,7 +175,7 @@ export function substr(str: string, begin: number, len?: number) {
     } else {
       if (begin + iLen >= point && begin + iLen <= point + strLen) {
         // is end
-        r = `${r}${dos[i - 1]}${iStr.substr(0, begin + iLen - point)}`
+        r = `${r}${dos[i - 1]}${iStr.substr(0, getRealIndex(iStr, begin + iLen - point))}`
         if (i % 2 !== 0 && i < dos.length) {
           r = `${r}${dos[i]}`
         }
@@ -187,7 +193,7 @@ export function substr(str: string, begin: number, len?: number) {
   return r
 }
 
-/** 字符不换行处理 */
+/** 字符换行处理 */
 export function strWrap(str: string, size: number, indent?: number) {
   const r: string[] = []
   const lines = `${str}`
@@ -338,5 +344,23 @@ export function highlight(str: string, keywordMap: HighlightMap) {
     const color = keywordMap[keyword]
     r = replaceKeyword(r, keyword, color(keyword))
   })
+  return r
+}
+
+export function getRealIndex(str: string, index: number) {
+  let r = 0
+  let count = 0
+  for (let i = 0; i <= index && i < str.length; i++) {
+    let add = 1
+    if (str[i].match(CHINESE_REG)) {
+      add = 2
+    }
+    if (count + add > index) {
+      r = i
+      break
+    } else {
+      count += add
+    }
+  }
   return r
 }

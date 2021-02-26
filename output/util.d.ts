@@ -28,7 +28,7 @@ export interface StrAlignOption {
 /** 格式化文字(居中, 左, 右) */
 export declare function strAlign(str: string, op: StrAlignOption): string;
 export declare function substr(str: string, begin: number, len?: number): string;
-/** 字符不换行处理 */
+/** 字符换行处理 */
 export declare function strWrap(str: string, size: number, indent?: number): string[];
 /** 切割文字为数组 */
 export declare function splitStr(str: string, maxLen: number): string[];
@@ -49,3 +49,4 @@ export interface HighlightMap {
 }
 /** 关键字高亮 */
 export declare function highlight(str: string, keywordMap: HighlightMap): string;
+export declare function getRealIndex(str: string, index: number): number;
