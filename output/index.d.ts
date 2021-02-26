@@ -40,6 +40,7 @@ export interface YylCmdLoggerOption {
     type?: ExtendType;
     /** 关键字高亮 */
     keywordHighlight?: HighlightMap;
+    /** 进度相关属性 */
     progressInfo?: ProgressInfo;
     /** cmd 一行长度,用于自测时使用 */
     colunmSize?: number;

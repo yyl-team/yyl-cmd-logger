@@ -2083,11 +2083,11 @@ class YylCmdLogger {
             warn: {
                 name: 'WARN',
                 shortName: '!',
-                color: source.bgYellow.white,
+                color: source.bgYellow.black,
                 shortColor: source.yellow
             },
             error: {
-                name: 'ERR',
+                name: 'ERR ',
                 shortName: 'x',
                 color: source.bgRed.white,
                 shortColor: source.red
@@ -2129,7 +2129,7 @@ class YylCmdLogger {
             shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G']
         };
         this.logLevel = 1;
-        this.lite = true;
+        this.lite = false;
         this.keywordHighlight = {};
         this.columnSize = COLUMNS;
         this.progressStat = {
@@ -2184,7 +2184,7 @@ class YylCmdLogger {
             if (this.progressStat.intervalKey) {
                 clearInterval(this.progressStat.intervalKey);
             }
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 0, progressing: true, intervalKey: setInterval(() => {
+            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, intervalKey: setInterval(() => {
                     this.updateProgress();
                 }, this.progressStat.interval) });
         }

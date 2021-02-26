@@ -58,6 +58,7 @@ export interface YylCmdLoggerOption {
   type?: ExtendType
   /** 关键字高亮 */
   keywordHighlight?: HighlightMap
+  /** 进度相关属性 */
   progressInfo?: ProgressInfo
   /** cmd 一行长度,用于自测时使用 */
   colunmSize?: number
@@ -102,11 +103,11 @@ export class YylCmdLogger<T extends string = ''> {
     warn: {
       name: 'WARN',
       shortName: '!',
-      color: chalk.bgYellow.white,
+      color: chalk.bgYellow.black,
       shortColor: chalk.yellow
     },
     error: {
-      name: 'ERR',
+      name: 'ERR ',
       shortName: 'x',
       color: chalk.bgRed.white,
       shortColor: chalk.red
@@ -150,7 +151,7 @@ export class YylCmdLogger<T extends string = ''> {
   }
 
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
-  lite: YylCmdLoggerProperty['lite'] = true
+  lite: YylCmdLoggerProperty['lite'] = false
   keywordHighlight: YylCmdLoggerProperty['keywordHighlight'] = {}
   columnSize: YylCmdLoggerProperty['colunmSize'] = COLUMNS
 
@@ -225,6 +226,9 @@ export class YylCmdLogger<T extends string = ''> {
 
       this.progressStat = {
         ...this.progressStat,
+        errorLogs: [],
+        successLogs: [],
+        warnLogs: [],
         percent: 0,
         progressing: true,
         intervalKey: setInterval(() => {
