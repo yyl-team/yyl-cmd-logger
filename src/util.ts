@@ -1,5 +1,6 @@
 import path from 'path'
 import { COLOR_REG } from './const'
+import { ChalkFunction } from 'chalk'
 
 /** 创建多个字符串 */
 export function buildChar(char: string, num: number) {
@@ -187,7 +188,7 @@ export function substr(str: string, begin: number, len?: number) {
 }
 
 /** 字符不换行处理 */
-export function strWrap(str: string, size: number, indent: number) {
+export function strWrap(str: string, size: number, indent?: number) {
   const r: string[] = []
   const lines = `${str}`
     .trim()
@@ -323,4 +324,19 @@ export function dateFormat(t: any) {
   }
 
   return `${year}-${mon}-${date} ${self.timeFormat(r)}`
+}
+
+/** 关键字高亮 map */
+export interface HighlightMap {
+  [keyword: string]: ChalkFunction
+}
+
+/** 关键字高亮 */
+export function highlight(str: string, keywordMap: HighlightMap) {
+  let r = str
+  Object.keys(keywordMap).forEach((keyword) => {
+    const color = keywordMap[keyword]
+    r = replaceKeyword(r, keyword, color(keyword))
+  })
+  return r
 }
