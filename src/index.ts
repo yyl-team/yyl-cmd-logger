@@ -469,6 +469,9 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** 设置 progress 状态 */
   setProgress(status: ProgressStatus) {
+    if (this.logLevel === 2) {
+      return
+    }
     if (status === 'start') {
       // 进入 progress 模式
 
