@@ -1,4 +1,4 @@
-const { YylCmdLogger } = require('../')
+const YylCmdLogger = require('../')
 const chalk = require('chalk')
 
 const logger = new YylCmdLogger({
@@ -12,22 +12,14 @@ const logger = new YylCmdLogger({
   }
 })
 
-logger.log('main', ['v1.0.0'])
-logger.log('info', [
-  '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890'
-])
-let r = logger.log('info', [
-  [
-    '一二三四五六七八九十',
-    '一二三四五六七八九十',
-    '一二三四五六七八九十',
-    '一二三四五六七八九十',
-    '一二三四五六七八九十'
-  ].join('')
-])
-logger.log('warn', ['警告信息'])
-logger.log('error', ['错误信息'])
-logger.log('del', ['删除信息'])
-logger.log('add', ['新增信息'])
-logger.log('update', ['更新信息'])
-logger.log('cmd', ['命令行信息'])
+
+logger.log('main', ['yyl 4.0.0'])
+logger.setProgress('start')
+logger.log('info', ['test 01'])
+logger.log('info', ['test 02'])
+logger.log('warn', ['test 02'])
+logger.log('success', ['test 02'])
+setTimeout(() => {
+  logger.setProgress('finished')
+  logger.log('success', ['task finished'])
+}, 4000)

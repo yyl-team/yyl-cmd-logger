@@ -2147,10 +2147,10 @@ class YylCmdLogger {
         };
         /** progress icon 信息 */
         this.progressInfo = {
-            icons: ['G---', 'NG--', 'ING-', 'DING', 'ADIN', 'OADI', 'LOAD', '-LOA', '--LO', '---L', '----'],
+            icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
             shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
-            color: source.bgCyan.white,
-            shortColor: source.cyan
+            color: source.bgRed.white,
+            shortColor: source.red
         };
         this.logLevel = 1;
         this.lite = false;
@@ -2166,7 +2166,7 @@ class YylCmdLogger {
             errorLogs: [],
             lastType: 'info',
             lastRowsCount: 0,
-            iconCurrent: 0,
+            frameCurrent: 0,
             intervalKey: undefined
         };
         // 日志类型配置
@@ -2192,12 +2192,46 @@ class YylCmdLogger {
     }
     /** 私有方法 - 更新 progress */
     updateProgress() {
-        const { progressStat, logLevel } = this;
+        const { progressStat, logLevel, lite, progressInfo } = this;
         if (!progressStat.progressing) {
             return [];
         }
-        return [];
-        // TODO:
+        const frameLength = lite ? progressInfo.shortIcons.length : progressInfo.icons.length;
+        const frameCurrent = (progressStat.frameCurrent + 1) % frameLength;
+        const name = lite
+            ? progressInfo.shortIcons[frameCurrent]
+            : ` ${progressInfo.icons[frameCurrent]} `;
+        const color = lite ? progressInfo.shortColor : progressInfo.color;
+        let lastTypeInfo = this.typeInfo.info;
+        const lastType = toCtx(progressStat.lastType);
+        if (lastType in this.typeInfo) {
+            lastTypeInfo = this.typeInfo[lastType];
+        }
+        const lastTypeStr = lastTypeInfo.shortColor(lastTypeInfo.shortName);
+        lastTypeInfo = this.typeInfo[lastType];
+        const r = this.formatLog({
+            name,
+            color,
+            args: [lastTypeStr].concat(progressStat.lastLogs)
+        });
+        // print
+        if (logLevel !== 0) {
+            const stream = process.stderr;
+            let padding = progressStat.lastRowsCount || 0;
+            while (padding) {
+                readline__default['default'].moveCursor(stream, 0, -1);
+                readline__default['default'].clearLine(stream, 1);
+                padding--;
+            }
+            readline__default['default'].clearLine(process.stderr, 1);
+            readline__default['default'].cursorTo(process.stderr, 0);
+            // print
+            console.log(r.join('\n'));
+        }
+        // 记录 log 占用行数
+        progressStat.lastRowsCount = r.length;
+        progressStat.frameCurrent = frameCurrent;
+        return r;
     }
     /** 格式化日志 */
     formatLog(op) {

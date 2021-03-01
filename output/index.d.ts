@@ -80,7 +80,7 @@ export interface ProgressStat<T extends string = ''> {
     /** 最后一个log行数 */
     lastRowsCount: number;
     /** 当前 icon 帧数 */
-    iconCurrent: number;
+    frameCurrent: number;
     /** intervalkey */
     intervalKey: any;
 }

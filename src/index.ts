@@ -1,5 +1,6 @@
 import chalk, { ChalkFunction } from 'chalk'
 import readline from 'readline'
+import { isSecureContext } from '../typing/global'
 import { COLUMNS } from './const'
 import {
   getStrSize,
@@ -101,7 +102,7 @@ export interface ProgressStat<T extends string = ''> {
   /** 最后一个log行数 */
   lastRowsCount: number
   /** 当前 icon 帧数 */
-  iconCurrent: number
+  frameCurrent: number
   /** intervalkey */
   intervalKey: any
 }
@@ -161,10 +162,10 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** progress icon 信息 */
   progressInfo: Required<YylCmdLoggerProperty['progressInfo']> = {
-    icons: ['G---', 'NG--', 'ING-', 'DING', 'ADIN', 'OADI', 'LOAD', '-LOA', '--LO', '---L', '----'],
+    icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
     shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
-    color: chalk.bgCyan.white,
-    shortColor: chalk.cyan
+    color: chalk.bgRed.white,
+    shortColor: chalk.red
   }
 
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
@@ -182,7 +183,7 @@ export class YylCmdLogger<T extends string = ''> {
     errorLogs: [],
     lastType: 'info',
     lastRowsCount: 0,
-    iconCurrent: 0,
+    frameCurrent: 0,
     intervalKey: undefined
   }
 
@@ -223,14 +224,55 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** 私有方法 - 更新 progress */
   protected updateProgress(): string[] {
-    const { progressStat, logLevel } = this
+    const { progressStat, logLevel, lite, progressInfo } = this
     if (!progressStat.progressing) {
       return []
     }
-    const r = ''
+    const frameLength = lite ? progressInfo.shortIcons.length : progressInfo.icons.length
+    const frameCurrent = (progressStat.frameCurrent + 1) % frameLength
+    const name = lite
+      ? progressInfo.shortIcons[frameCurrent]
+      : ` ${progressInfo.icons[frameCurrent]} `
+    const color = lite ? progressInfo.shortColor : progressInfo.color
 
-    return []
-    // TODO:
+    let lastTypeInfo: TypeObject = this.typeInfo.info
+    const lastType = toCtx<keyof TypeInfo>(progressStat.lastType)
+    if (lastType in this.typeInfo) {
+      lastTypeInfo = this.typeInfo[lastType]
+    }
+
+    const lastTypeStr = lastTypeInfo.shortColor(lastTypeInfo.shortName)
+
+    lastTypeInfo = this.typeInfo[lastType]
+
+    const r = this.formatLog({
+      name,
+      color,
+      args: [lastTypeStr].concat(progressStat.lastLogs)
+    })
+
+    // print
+    if (logLevel !== 0) {
+      const stream = process.stderr
+      let padding = progressStat.lastRowsCount || 0
+      while (padding) {
+        readline.moveCursor(stream, 0, -1)
+        readline.clearLine(stream, 1)
+        padding--
+      }
+
+      readline.clearLine(process.stderr, 1)
+      readline.cursorTo(process.stderr, 0)
+
+      // print
+      console.log(r.join('\n'))
+    }
+
+    // 记录 log 占用行数
+    progressStat.lastRowsCount = r.length
+    progressStat.frameCurrent = frameCurrent
+
+    return r
   }
 
   /** 格式化日志 */
