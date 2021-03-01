@@ -27,8 +27,14 @@ export interface ExtendType {
     [key: string]: TypeObject;
 }
 export interface ProgressInfo {
-    icons: string[];
-    shortIcons: string[];
+    /** 长版 icon */
+    icons?: string[];
+    /** 简版 icon */
+    shortIcons?: string[];
+    /** 长版 颜色 */
+    color?: ChalkFunction;
+    /** 简版 颜色 */
+    shortColor?: ChalkFunction;
 }
 /** logger - 配置 */
 export interface YylCmdLoggerOption {
@@ -44,6 +50,12 @@ export interface YylCmdLoggerOption {
     progressInfo?: ProgressInfo;
     /** cmd 一行长度,用于自测时使用 */
     colunmSize?: number;
+}
+/** log 格式化配置 */
+export interface FormatLogOption {
+    name: string;
+    color: ChalkFunction;
+    args: any[];
 }
 /** logger - 属性 */
 declare type YylCmdLoggerProperty = Required<YylCmdLoggerOption>;
@@ -67,6 +79,8 @@ export interface ProgressStat<T extends string = ''> {
     lastType: LogType | T;
     /** 最后一个log行数 */
     lastRowsCount: number;
+    /** 当前 icon 帧数 */
+    iconCurrent: number;
     /** intervalkey */
     intervalKey: any;
 }
@@ -74,7 +88,7 @@ export interface ProgressStat<T extends string = ''> {
 export declare class YylCmdLogger<T extends string = ''> {
     typeInfo: TypeInfo;
     /** progress icon 信息 */
-    progressInfo: YylCmdLoggerProperty['progressInfo'];
+    progressInfo: Required<YylCmdLoggerProperty['progressInfo']>;
     logLevel: YylCmdLoggerProperty['logLevel'];
     lite: YylCmdLoggerProperty['lite'];
     keywordHighlight: YylCmdLoggerProperty['keywordHighlight'];
@@ -82,7 +96,9 @@ export declare class YylCmdLogger<T extends string = ''> {
     progressStat: ProgressStat<T>;
     constructor(op?: YylCmdLoggerOption);
     /** 私有方法 - 更新 progress */
-    protected updateProgress(): void;
+    protected updateProgress(): string[];
+    /** 格式化日志 */
+    protected formatLog(op: FormatLogOption): string[];
     protected addProgressLog(type: LogType | T, args: any[]): string[];
     /** 设置 progress 状态 */
     setProgress(status: ProgressStatus): void;

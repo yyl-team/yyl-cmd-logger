@@ -159,15 +159,15 @@ export function substr(str: string, begin: number, len?: number) {
         }
         if (begin + iLen >= point && begin + iLen <= point + strLen) {
           r = `${r}${iStr.substr(
-            getRealIndex(iStr, begin - point),
-            getRealIndex(iStr, begin + iLen - point)
+            getStrIndex(iStr, begin - point),
+            getStrIndex(iStr, begin + iLen - point)
           )}`
           if (i % 2 !== 0 && i < dos.length) {
             r = `${r}${dos[i]}`
           }
           isEnd = true
         } else {
-          r = `${r}${iStr.substr(getRealIndex(iStr, begin - point))}`
+          r = `${r}${iStr.substr(getStrIndex(iStr, begin - point))}`
         }
 
         isBegin = true
@@ -175,7 +175,7 @@ export function substr(str: string, begin: number, len?: number) {
     } else {
       if (begin + iLen >= point && begin + iLen <= point + strLen) {
         // is end
-        r = `${r}${dos[i - 1]}${iStr.substr(0, getRealIndex(iStr, begin + iLen - point))}`
+        r = `${r}${dos[i - 1]}${iStr.substr(0, getStrIndex(iStr, begin + iLen - point))}`
         if (i % 2 !== 0 && i < dos.length) {
           r = `${r}${dos[i]}`
         }
@@ -347,7 +347,8 @@ export function highlight(str: string, keywordMap: HighlightMap) {
   return r
 }
 
-export function getRealIndex(str: string, index: number) {
+/** 获取字符 index （中文字符算 2） */
+export function getStrIndex(str: string, index: number) {
   let r = 0
   let count = 0
   for (let i = 0; i <= index && i < str.length; i++) {

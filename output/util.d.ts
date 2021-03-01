@@ -49,4 +49,5 @@ export interface HighlightMap {
 }
 /** 关键字高亮 */
 export declare function highlight(str: string, keywordMap: HighlightMap): string;
-export declare function getRealIndex(str: string, index: number): number;
+/** 获取字符 index （中文字符算 2） */
+export declare function getStrIndex(str: string, index: number): number;

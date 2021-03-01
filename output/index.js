@@ -1990,14 +1990,14 @@ function substr(str, begin, len) {
                     r = `${dos[i - 1]}`;
                 }
                 if (begin + iLen >= point && begin + iLen <= point + strLen) {
-                    r = `${r}${iStr.substr(getRealIndex(iStr, begin - point), getRealIndex(iStr, begin + iLen - point))}`;
+                    r = `${r}${iStr.substr(getStrIndex(iStr, begin - point), getStrIndex(iStr, begin + iLen - point))}`;
                     if (i % 2 !== 0 && i < dos.length) {
                         r = `${r}${dos[i]}`;
                     }
                     isEnd = true;
                 }
                 else {
-                    r = `${r}${iStr.substr(getRealIndex(iStr, begin - point))}`;
+                    r = `${r}${iStr.substr(getStrIndex(iStr, begin - point))}`;
                 }
                 isBegin = true;
             }
@@ -2005,7 +2005,7 @@ function substr(str, begin, len) {
         else {
             if (begin + iLen >= point && begin + iLen <= point + strLen) {
                 // is end
-                r = `${r}${dos[i - 1]}${iStr.substr(0, getRealIndex(iStr, begin + iLen - point))}`;
+                r = `${r}${dos[i - 1]}${iStr.substr(0, getStrIndex(iStr, begin + iLen - point))}`;
                 if (i % 2 !== 0 && i < dos.length) {
                     r = `${r}${dos[i]}`;
                 }
@@ -2072,7 +2072,8 @@ function highlight(str, keywordMap) {
     });
     return r;
 }
-function getRealIndex(str, index) {
+/** 获取字符 index （中文字符算 2） */
+function getStrIndex(str, index) {
     let r = 0;
     let count = 0;
     for (let i = 0; i <= index && i < str.length; i++) {
@@ -2147,7 +2148,9 @@ class YylCmdLogger {
         /** progress icon 信息 */
         this.progressInfo = {
             icons: ['G---', 'NG--', 'ING-', 'DING', 'ADIN', 'OADI', 'LOAD', '-LOA', '--LO', '---L', '----'],
-            shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G']
+            shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
+            color: source.bgCyan.white,
+            shortColor: source.cyan
         };
         this.logLevel = 1;
         this.lite = false;
@@ -2163,87 +2166,47 @@ class YylCmdLogger {
             errorLogs: [],
             lastType: 'info',
             lastRowsCount: 0,
+            iconCurrent: 0,
             intervalKey: undefined
         };
+        // 日志类型配置
         if (op === null || op === void 0 ? void 0 : op.type) {
             this.typeInfo = Object.assign(Object.assign({}, this.typeInfo), op.type);
         }
+        // 日志等级配置
         if ((op === null || op === void 0 ? void 0 : op.logLevel) !== undefined) {
             this.logLevel = op.logLevel;
         }
+        // 轻量版配置
         if ((op === null || op === void 0 ? void 0 : op.lite) !== undefined) {
             this.lite = op.lite;
         }
+        // 关键字高亮配置初始化
         if (op === null || op === void 0 ? void 0 : op.keywordHighlight) {
             this.keywordHighlight = Object.assign(Object.assign({}, this.keywordHighlight), op.keywordHighlight);
+        }
+        // progress 初始化
+        if (op === null || op === void 0 ? void 0 : op.progressInfo) {
+            this.progressInfo = Object.assign(Object.assign({}, this.progressInfo), op.progressInfo);
         }
     }
     /** 私有方法 - 更新 progress */
     updateProgress() {
+        const { progressStat, logLevel } = this;
+        if (!progressStat.progressing) {
+            return [];
+        }
+        return [];
         // TODO:
     }
-    addProgressLog(type, args) {
-        const { progressStat } = this;
-        switch (type) {
-            case 'warn':
-                progressStat.warnLogs.push(args);
-                break;
-            case 'error':
-                progressStat.errorLogs.push(args);
-                break;
-            case 'success':
-                progressStat.successLogs.push(args);
-                break;
-        }
-        progressStat.lastLogs = args;
-        this.updateProgress();
-        return [];
-    }
-    /** 设置 progress 状态 */
-    setProgress(status) {
-        if (status === 'start') {
-            if (this.progressStat.intervalKey) {
-                clearInterval(this.progressStat.intervalKey);
-            }
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, intervalKey: setInterval(() => {
-                    this.updateProgress();
-                }, this.progressStat.interval) });
-        }
-        else if (status === 'finished') {
-            if (this.progressStat.intervalKey) {
-                clearInterval(this.progressStat.intervalKey);
-            }
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
-        }
-        else {
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
-        }
-        this.updateProgress();
-    }
-    /** 设置日志等级 */
-    setLogLevel(level) {
-        this.logLevel = level;
-    }
-    /** 日志输出 */
-    log(type$1, args) {
-        const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this;
-        let iTypeInfo = typeInfo[type$1];
-        if (!iTypeInfo) {
-            iTypeInfo = typeInfo.info;
-            type$1 = 'info';
-        }
-        if (progressStat.progressing) {
-            return this.addProgressLog(type$1, args);
-        }
-        // 日志格式化处理
+    /** 格式化日志 */
+    formatLog(op) {
+        const { name, color, args } = op;
+        const { keywordHighlight, columnSize } = this;
         // 第一行标题
-        const prefix = lite
-            ? iTypeInfo.shortColor(iTypeInfo.shortName)
-            : iTypeInfo.color(` ${iTypeInfo.name} `);
+        const prefix = color(name);
         // 第二行标题
-        const subfix = lite
-            ? iTypeInfo.shortColor(makeSpace(getStrSize(iTypeInfo.shortName)))
-            : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name) + 2));
+        const subfix = color(makeSpace(getStrSize(name)));
         const prefixSize = getStrSize(prefix);
         const contentSize = columnSize - prefixSize - 2;
         let fArgs = [];
@@ -2281,6 +2244,71 @@ class YylCmdLogger {
                 }
                 r.push(ctx);
             }
+        });
+        return r;
+    }
+    addProgressLog(type, args) {
+        const { progressStat } = this;
+        switch (type) {
+            case 'warn':
+                progressStat.warnLogs.push(args);
+                break;
+            case 'error':
+                progressStat.errorLogs.push(args);
+                break;
+            case 'success':
+                progressStat.successLogs.push(args);
+                break;
+        }
+        progressStat.lastLogs = args;
+        progressStat.lastType = type;
+        return this.updateProgress();
+    }
+    /** 设置 progress 状态 */
+    setProgress(status) {
+        if (status === 'start') {
+            // 进入 progress 模式
+            if (this.progressStat.intervalKey) {
+                clearInterval(this.progressStat.intervalKey);
+            }
+            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, intervalKey: setInterval(() => {
+                    this.updateProgress();
+                }, this.progressStat.interval) });
+        }
+        else if (status === 'finished') {
+            // 退出 progress 模式
+            if (this.progressStat.intervalKey) {
+                clearInterval(this.progressStat.intervalKey);
+            }
+            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
+            // TODO: 输出 success、 warn、 error、信息
+        }
+        else {
+            // 更新 progress 进度
+            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
+        }
+        this.updateProgress();
+    }
+    /** 设置日志等级 */
+    setLogLevel(level) {
+        this.logLevel = level;
+    }
+    /** 日志输出 */
+    log(type, args) {
+        const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this;
+        let iTypeInfo = typeInfo[type];
+        if (!iTypeInfo) {
+            iTypeInfo = typeInfo.info;
+            type = 'info';
+        }
+        if (progressStat.progressing) {
+            return this.addProgressLog(type, args);
+        }
+        // 日志格式化处理
+        const r = this.formatLog({
+            name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
+            color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
+            args
         });
         if (logLevel !== 0) {
             readline__default['default'].clearLine(process.stderr, 1);

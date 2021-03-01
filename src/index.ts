@@ -44,8 +44,14 @@ export interface ExtendType {
 }
 
 export interface ProgressInfo {
-  icons: string[]
-  shortIcons: string[]
+  /** 长版 icon */
+  icons?: string[]
+  /** 简版 icon */
+  shortIcons?: string[]
+  /** 长版 颜色 */
+  color?: ChalkFunction
+  /** 简版 颜色 */
+  shortColor?: ChalkFunction
 }
 
 /** logger - 配置 */
@@ -62,6 +68,13 @@ export interface YylCmdLoggerOption {
   progressInfo?: ProgressInfo
   /** cmd 一行长度,用于自测时使用 */
   colunmSize?: number
+}
+
+/** log 格式化配置 */
+export interface FormatLogOption {
+  name: string
+  color: ChalkFunction
+  args: any[]
 }
 
 /** logger - 属性 */
@@ -87,6 +100,8 @@ export interface ProgressStat<T extends string = ''> {
   lastType: LogType | T
   /** 最后一个log行数 */
   lastRowsCount: number
+  /** 当前 icon 帧数 */
+  iconCurrent: number
   /** intervalkey */
   intervalKey: any
 }
@@ -145,9 +160,11 @@ export class YylCmdLogger<T extends string = ''> {
   }
 
   /** progress icon 信息 */
-  progressInfo: YylCmdLoggerProperty['progressInfo'] = {
+  progressInfo: Required<YylCmdLoggerProperty['progressInfo']> = {
     icons: ['G---', 'NG--', 'ING-', 'DING', 'ADIN', 'OADI', 'LOAD', '-LOA', '--LO', '---L', '----'],
-    shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G']
+    shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
+    color: chalk.bgCyan.white,
+    shortColor: chalk.cyan
   }
 
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
@@ -165,124 +182,66 @@ export class YylCmdLogger<T extends string = ''> {
     errorLogs: [],
     lastType: 'info',
     lastRowsCount: 0,
+    iconCurrent: 0,
     intervalKey: undefined
   }
 
   constructor(op?: YylCmdLoggerOption) {
+    // 日志类型配置
     if (op?.type) {
       this.typeInfo = {
         ...this.typeInfo,
         ...op.type
       }
     }
+    // 日志等级配置
     if (op?.logLevel !== undefined) {
       this.logLevel = op.logLevel
     }
 
+    // 轻量版配置
     if (op?.lite !== undefined) {
       this.lite = op.lite
     }
 
+    // 关键字高亮配置初始化
     if (op?.keywordHighlight) {
       this.keywordHighlight = {
         ...this.keywordHighlight,
         ...op.keywordHighlight
       }
     }
+
+    // progress 初始化
+    if (op?.progressInfo) {
+      this.progressInfo = {
+        ...this.progressInfo,
+        ...op.progressInfo
+      }
+    }
   }
 
   /** 私有方法 - 更新 progress */
-  protected updateProgress() {
+  protected updateProgress(): string[] {
+    const { progressStat, logLevel } = this
+    if (!progressStat.progressing) {
+      return []
+    }
+    const r = ''
+
+    return []
     // TODO:
   }
 
-  protected addProgressLog(type: LogType | T, args: any[]): string[] {
-    const { progressStat } = this
-    switch (type) {
-      case 'warn':
-        progressStat.warnLogs.push(args)
-        break
-      case 'error':
-        progressStat.errorLogs.push(args)
-        break
-      case 'success':
-        progressStat.successLogs.push(args)
-        break
-
-      default:
-        break
-    }
-    progressStat.lastLogs = args
-    this.updateProgress()
-    return []
-  }
-
-  /** 设置 progress 状态 */
-  setProgress(status: ProgressStatus) {
-    if (status === 'start') {
-      if (this.progressStat.intervalKey) {
-        clearInterval(this.progressStat.intervalKey)
-      }
-
-      this.progressStat = {
-        ...this.progressStat,
-        errorLogs: [],
-        successLogs: [],
-        warnLogs: [],
-        percent: 0,
-        progressing: true,
-        intervalKey: setInterval(() => {
-          this.updateProgress()
-        }, this.progressStat.interval)
-      }
-    } else if (status === 'finished') {
-      if (this.progressStat.intervalKey) {
-        clearInterval(this.progressStat.intervalKey)
-      }
-
-      this.progressStat = {
-        ...this.progressStat,
-        percent: 1,
-        progressing: false,
-        intervalKey: undefined
-      }
-    } else {
-      this.progressStat = {
-        ...this.progressStat,
-        percent: status
-      }
-    }
-    this.updateProgress()
-  }
-
-  /** 设置日志等级 */
-  setLogLevel(level: LogLevel) {
-    this.logLevel = level
-  }
-
-  /** 日志输出 */
-  log(type: LogType | T, args: any[]): string[] {
-    const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this
-    let iTypeInfo = typeInfo[type]
-    if (!iTypeInfo) {
-      iTypeInfo = typeInfo.info
-      type = 'info'
-    }
-    if (progressStat.progressing) {
-      return this.addProgressLog(type, args)
-    }
-
-    // 日志格式化处理
-
+  /** 格式化日志 */
+  protected formatLog(op: FormatLogOption) {
+    const { name, color, args } = op
+    const { keywordHighlight, columnSize } = this
     // 第一行标题
-    const prefix = lite
-      ? iTypeInfo.shortColor(iTypeInfo.shortName)
-      : iTypeInfo.color(` ${iTypeInfo.name} `)
-
+    const prefix = color(name)
     // 第二行标题
-    const subfix = lite
-      ? iTypeInfo.shortColor(makeSpace(getStrSize(iTypeInfo.shortName)))
-      : iTypeInfo.color(makeSpace(getStrSize(iTypeInfo.name) + 2))
+    const subfix = color(makeSpace(getStrSize(name)))
+
     const prefixSize = getStrSize(prefix)
     const contentSize = columnSize - prefixSize - 2
 
@@ -318,6 +277,97 @@ export class YylCmdLogger<T extends string = ''> {
         }
         r.push(ctx)
       }
+    })
+    return r
+  }
+
+  protected addProgressLog(type: LogType | T, args: any[]): string[] {
+    const { progressStat } = this
+    switch (type) {
+      case 'warn':
+        progressStat.warnLogs.push(args)
+        break
+      case 'error':
+        progressStat.errorLogs.push(args)
+        break
+      case 'success':
+        progressStat.successLogs.push(args)
+        break
+
+      default:
+        break
+    }
+    progressStat.lastLogs = args
+    progressStat.lastType = type
+    return this.updateProgress()
+  }
+
+  /** 设置 progress 状态 */
+  setProgress(status: ProgressStatus) {
+    if (status === 'start') {
+      // 进入 progress 模式
+
+      if (this.progressStat.intervalKey) {
+        clearInterval(this.progressStat.intervalKey)
+      }
+
+      this.progressStat = {
+        ...this.progressStat,
+        errorLogs: [],
+        successLogs: [],
+        warnLogs: [],
+        percent: 0,
+        progressing: true,
+        intervalKey: setInterval(() => {
+          this.updateProgress()
+        }, this.progressStat.interval)
+      }
+    } else if (status === 'finished') {
+      // 退出 progress 模式
+
+      if (this.progressStat.intervalKey) {
+        clearInterval(this.progressStat.intervalKey)
+      }
+
+      this.progressStat = {
+        ...this.progressStat,
+        percent: 1,
+        progressing: false,
+        intervalKey: undefined
+      }
+      // TODO: 输出 success、 warn、 error、信息
+    } else {
+      // 更新 progress 进度
+      this.progressStat = {
+        ...this.progressStat,
+        percent: status
+      }
+    }
+    this.updateProgress()
+  }
+
+  /** 设置日志等级 */
+  setLogLevel(level: LogLevel) {
+    this.logLevel = level
+  }
+
+  /** 日志输出 */
+  log(type: LogType | T, args: any[]): string[] {
+    const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this
+    let iTypeInfo = typeInfo[type]
+    if (!iTypeInfo) {
+      iTypeInfo = typeInfo.info
+      type = 'info'
+    }
+    if (progressStat.progressing) {
+      return this.addProgressLog(type, args)
+    }
+
+    // 日志格式化处理
+    const r = this.formatLog({
+      name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
+      color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
+      args
     })
 
     if (logLevel !== 0) {
