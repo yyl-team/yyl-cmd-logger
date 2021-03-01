@@ -1,6 +1,7 @@
 import path from 'path'
 import { CHINESE_REG, COLOR_REG } from './const'
 import { ChalkFunction } from 'chalk'
+import readline from 'readline'
 
 /** 创建多个字符串 */
 export function buildChar(char: string, num: number) {
@@ -364,4 +365,28 @@ export function getStrIndex(str: string, index: number) {
     }
   }
   return r
+}
+
+/** 日志输出 - 配置 */
+export interface PrintLogOption {
+  logs: string[]
+  backLine?: number
+}
+
+/** 日志输出 */
+export function printLog(op: PrintLogOption) {
+  const r = op.logs
+  const stream = process.stderr
+  let padding = op.backLine || 0
+  while (padding) {
+    readline.moveCursor(stream, 0, -1)
+    readline.clearLine(stream, 1)
+    padding--
+  }
+
+  readline.clearLine(process.stderr, 1)
+  readline.cursorTo(process.stderr, 0)
+
+  // print
+  console.log(r.join('\n'))
 }

@@ -1,5 +1,4 @@
-const YylCmdLogger = require('../../')
-const chalk = require('chalk')
+const YylCmdLogger = require('../../output')
 
 test('yyLogger.log() 非中文换行问题', () => {
   const logger = new YylCmdLogger({
@@ -21,10 +20,10 @@ test('yyLogger.log() 非中文换行问题', () => {
       ].join('')
     ])
   ).toEqual([
-    `${chalk.bgBlack.gray(
-      ' INFO '
+    `${logger.typeInfo.info.color(
+      ` ${logger.typeInfo.info.name} `
     )} 12345678901234567890123456789012345678901234567890123456789012345678901234`,
-    `${chalk.bgBlack.gray('      ')} 5678901234567890`
+    `${logger.typeInfo.info.color('      ')} 5678901234567890`
   ])
 })
 
@@ -45,10 +44,10 @@ test('yyLogger.log() 中文换行问题', () => {
       ].join('')
     ])
   ).toEqual([
-    `${chalk.bgBlack.gray(
-      ' INFO '
+    `${logger.typeInfo.info.color(
+      ` ${logger.typeInfo.info.name} `
     )} 一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七`,
-    `${chalk.bgBlack.gray('      ')} 八九十一二三四五六七八九十一二三四五六七八九十`
+    `${logger.typeInfo.info.color('      ')} 八九十一二三四五六七八九十一二三四五六七八九十`
   ])
 })
 
@@ -69,9 +68,9 @@ test('yyLogger.log() 混合字符问题', () => {
       ].join('')
     ])
   ).toEqual([
-    `${chalk.bgBlack.gray(
-      ' INFO '
+    `${logger.typeInfo.info.color(
+      ` ${logger.typeInfo.info.name} `
     )} 一二三四五六七八九十1234567890一二三四五六七八九十1234567890一二三四五六七`,
-    `${chalk.bgBlack.gray('      ')} 八九十1234567890`
+    `${logger.typeInfo.info.color('      ')} 八九十1234567890`
   ])
 })

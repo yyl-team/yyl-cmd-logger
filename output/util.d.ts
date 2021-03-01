@@ -51,3 +51,10 @@ export interface HighlightMap {
 export declare function highlight(str: string, keywordMap: HighlightMap): string;
 /** 获取字符 index （中文字符算 2） */
 export declare function getStrIndex(str: string, index: number): number;
+/** 日志输出 - 配置 */
+export interface PrintLogOption {
+    logs: string[];
+    backLine?: number;
+}
+/** 日志输出 */
+export declare function printLog(op: PrintLogOption): void;

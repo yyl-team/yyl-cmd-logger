@@ -1,6 +1,5 @@
 import chalk, { ChalkFunction } from 'chalk'
 import readline from 'readline'
-import { isSecureContext } from '../typing/global'
 import { COLUMNS } from './const'
 import {
   getStrSize,
@@ -9,7 +8,8 @@ import {
   toCtx,
   HighlightMap,
   highlight,
-  makeSpace
+  makeSpace,
+  printLog
 } from './util'
 
 export type LogLevel = 0 | 1 | 2
@@ -310,20 +310,11 @@ export class YylCmdLogger<T extends string = ''> {
     })
 
     // print
-    if (logLevel !== 0) {
-      const stream = process.stderr
-      let padding = progressStat.lastRowsCount || 0
-      while (padding) {
-        readline.moveCursor(stream, 0, -1)
-        readline.clearLine(stream, 1)
-        padding--
-      }
-
-      readline.clearLine(process.stderr, 1)
-      readline.cursorTo(process.stderr, 0)
-
-      // print
-      console.log(r.join('\n'))
+    if (logLevel === 1) {
+      printLog({
+        backLine: progressStat.lastRowsCount || 0,
+        logs: r
+      })
     }
 
     // 记录 log 占用行数
@@ -355,11 +346,13 @@ export class YylCmdLogger<T extends string = ''> {
     // print
     if (logLevel !== 0) {
       const stream = process.stderr
-      let padding = progressStat.lastRowsCount || 0
-      while (padding) {
-        readline.moveCursor(stream, 0, -1)
-        readline.clearLine(stream, 1)
-        padding--
+      if (logLevel === 1) {
+        let padding = progressStat.lastRowsCount || 0
+        while (padding) {
+          readline.moveCursor(stream, 0, -1)
+          readline.clearLine(stream, 1)
+          padding--
+        }
       }
 
       readline.clearLine(process.stderr, 1)
@@ -438,7 +431,8 @@ export class YylCmdLogger<T extends string = ''> {
 
   protected addProgressLog(type: LogType | T, args: any[]): string[] {
     const { progressStat } = this
-    switch (type) {
+    const iType = this.formatLogInfo(type).type
+    switch (iType) {
       case 'warn':
         progressStat.warnLogs.push(args)
         break
@@ -463,15 +457,46 @@ export class YylCmdLogger<T extends string = ''> {
         break
     }
     progressStat.lastLogs = args
-    progressStat.lastType = type
+    progressStat.lastType = iType
     return this.updateProgress()
+  }
+
+  /** 格式化 logInfo */
+  protected formatLogInfo(type: LogType | T) {
+    const { typeInfo } = this
+    let iTypeInfo = typeInfo[type]
+    if (!iTypeInfo) {
+      iTypeInfo = typeInfo.info
+      type = 'info'
+    }
+    return {
+      type,
+      info: iTypeInfo
+    }
+  }
+
+  protected normalLog(type: LogType | T, args: any[]): string[] {
+    const { lite, logLevel } = this
+    const iTypeInfo = this.formatLogInfo(type).info
+
+    // 日志格式化处理
+    const r = this.formatLog({
+      name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
+      color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
+      args
+    })
+
+    if (logLevel !== 0) {
+      printLog({
+        logs: r
+      })
+    }
+
+    return r
   }
 
   /** 设置 progress 状态 */
   setProgress(status: ProgressStatus) {
-    if (this.logLevel === 2) {
-      return
-    }
     if (status === 'start') {
       // 进入 progress 模式
 
@@ -510,30 +535,18 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** 日志输出 */
   log(type: LogType | T, args: any[]): string[] {
-    const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this
-    let iTypeInfo = typeInfo[type]
-    if (!iTypeInfo) {
-      iTypeInfo = typeInfo.info
-      type = 'info'
-    }
+    const { progressStat, logLevel } = this
+
     if (progressStat.progressing) {
-      return this.addProgressLog(type, args)
+      if (logLevel === 1) {
+        return this.addProgressLog(type, args)
+      } else if (logLevel === 2) {
+        this.addProgressLog(type, args)
+        return this.normalLog(type, args)
+      }
     }
 
-    // 日志格式化处理
-    const r = this.formatLog({
-      name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
-      color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
-      args
-    })
-
-    if (logLevel !== 0) {
-      readline.clearLine(process.stderr, 1)
-      readline.cursorTo(process.stderr, 0)
-      console.log(r.join('\n'))
-    }
-
-    return r
+    return this.normalLog(type, args)
   }
 }
 

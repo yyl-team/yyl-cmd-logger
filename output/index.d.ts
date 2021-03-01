@@ -110,6 +110,12 @@ export declare class YylCmdLogger<T extends string = ''> {
     /** 格式化日志 */
     protected formatLog(op: FormatLogOption): string[];
     protected addProgressLog(type: LogType | T, args: any[]): string[];
+    /** 格式化 logInfo */
+    protected formatLogInfo(type: LogType | T): {
+        type: string | number | T;
+        info: TypeInfo[string | number | T];
+    };
+    protected normalLog(type: LogType | T, args: any[]): string[];
     /** 设置 progress 状态 */
     setProgress(status: ProgressStatus): void;
     /** 设置日志等级 */

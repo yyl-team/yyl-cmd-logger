@@ -2091,6 +2091,21 @@ function getStrIndex(str, index) {
     }
     return r;
 }
+/** 日志输出 */
+function printLog(op) {
+    const r = op.logs;
+    const stream = process.stderr;
+    let padding = op.backLine || 0;
+    while (padding) {
+        readline__default['default'].moveCursor(stream, 0, -1);
+        readline__default['default'].clearLine(stream, 1);
+        padding--;
+    }
+    readline__default['default'].clearLine(process.stderr, 1);
+    readline__default['default'].cursorTo(process.stderr, 0);
+    // print
+    console.log(r.join('\n'));
+}
 
 /** logger 对象 */
 class YylCmdLogger {
@@ -2249,18 +2264,11 @@ class YylCmdLogger {
             args: [headlineStr, lastTypeStr].concat(progressStat.lastLogs)
         });
         // print
-        if (logLevel !== 0) {
-            const stream = process.stderr;
-            let padding = progressStat.lastRowsCount || 0;
-            while (padding) {
-                readline__default['default'].moveCursor(stream, 0, -1);
-                readline__default['default'].clearLine(stream, 1);
-                padding--;
-            }
-            readline__default['default'].clearLine(process.stderr, 1);
-            readline__default['default'].cursorTo(process.stderr, 0);
-            // print
-            console.log(r.join('\n'));
+        if (logLevel === 1) {
+            printLog({
+                backLine: progressStat.lastRowsCount || 0,
+                logs: r
+            });
         }
         // 记录 log 占用行数
         progressStat.lastRowsCount = r.length;
@@ -2280,11 +2288,13 @@ class YylCmdLogger {
         // print
         if (logLevel !== 0) {
             const stream = process.stderr;
-            let padding = progressStat.lastRowsCount || 0;
-            while (padding) {
-                readline__default['default'].moveCursor(stream, 0, -1);
-                readline__default['default'].clearLine(stream, 1);
-                padding--;
+            if (logLevel === 1) {
+                let padding = progressStat.lastRowsCount || 0;
+                while (padding) {
+                    readline__default['default'].moveCursor(stream, 0, -1);
+                    readline__default['default'].clearLine(stream, 1);
+                    padding--;
+                }
             }
             readline__default['default'].clearLine(process.stderr, 1);
             readline__default['default'].cursorTo(process.stderr, 0);
@@ -2360,7 +2370,8 @@ class YylCmdLogger {
     }
     addProgressLog(type, args) {
         const { progressStat } = this;
-        switch (type) {
+        const iType = this.formatLogInfo(type).type;
+        switch (iType) {
             case 'warn':
                 progressStat.warnLogs.push(args);
                 break;
@@ -2381,14 +2392,40 @@ class YylCmdLogger {
                 break;
         }
         progressStat.lastLogs = args;
-        progressStat.lastType = type;
+        progressStat.lastType = iType;
         return this.updateProgress();
+    }
+    /** 格式化 logInfo */
+    formatLogInfo(type) {
+        const { typeInfo } = this;
+        let iTypeInfo = typeInfo[type];
+        if (!iTypeInfo) {
+            iTypeInfo = typeInfo.info;
+            type = 'info';
+        }
+        return {
+            type,
+            info: iTypeInfo
+        };
+    }
+    normalLog(type, args) {
+        const { lite, logLevel } = this;
+        const iTypeInfo = this.formatLogInfo(type).info;
+        // 日志格式化处理
+        const r = this.formatLog({
+            name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
+            color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
+            args
+        });
+        if (logLevel !== 0) {
+            printLog({
+                logs: r
+            });
+        }
+        return r;
     }
     /** 设置 progress 状态 */
     setProgress(status) {
-        if (this.logLevel === 2) {
-            return;
-        }
         if (status === 'start') {
             // 进入 progress 模式
             if (this.progressStat.intervalKey) {
@@ -2414,27 +2451,17 @@ class YylCmdLogger {
     }
     /** 日志输出 */
     log(type, args) {
-        const { progressStat, lite, typeInfo, columnSize, keywordHighlight, logLevel } = this;
-        let iTypeInfo = typeInfo[type];
-        if (!iTypeInfo) {
-            iTypeInfo = typeInfo.info;
-            type = 'info';
-        }
+        const { progressStat, logLevel } = this;
         if (progressStat.progressing) {
-            return this.addProgressLog(type, args);
+            if (logLevel === 1) {
+                return this.addProgressLog(type, args);
+            }
+            else if (logLevel === 2) {
+                this.addProgressLog(type, args);
+                return this.normalLog(type, args);
+            }
         }
-        // 日志格式化处理
-        const r = this.formatLog({
-            name: lite ? iTypeInfo.shortName : ` ${iTypeInfo.name} `,
-            color: lite ? iTypeInfo.shortColor : iTypeInfo.color,
-            args
-        });
-        if (logLevel !== 0) {
-            readline__default['default'].clearLine(process.stderr, 1);
-            readline__default['default'].cursorTo(process.stderr, 0);
-            console.log(r.join('\n'));
-        }
-        return r;
+        return this.normalLog(type, args);
     }
 }
 module.exports = YylCmdLogger;
