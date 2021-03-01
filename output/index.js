@@ -2164,6 +2164,9 @@ class YylCmdLogger {
             successLogs: [],
             warnLogs: [],
             errorLogs: [],
+            addLogs: [],
+            delLogs: [],
+            updateLogs: [],
             lastType: 'info',
             lastRowsCount: 0,
             frameCurrent: 0,
@@ -2190,29 +2193,60 @@ class YylCmdLogger {
             this.progressInfo = Object.assign(Object.assign({}, this.progressInfo), op.progressInfo);
         }
     }
+    /** 获取 progress headline */
+    getProgressHeadline() {
+        const { progressStat, typeInfo } = this;
+        const precentStr = Math.round(progressStat.percent * 1000) / 10;
+        let headlineStr = `${precentStr}%`;
+        // 输出 新增文件 信息
+        if (progressStat.addLogs.length) {
+            headlineStr = `${headlineStr} ${typeInfo.add.shortColor(typeInfo.add.shortName)} ${progressStat.addLogs.length}`;
+        }
+        // 输出 更新文件 信息
+        if (progressStat.updateLogs.length) {
+            headlineStr = `${headlineStr} ${typeInfo.update.shortColor(typeInfo.update.shortName)} ${progressStat.updateLogs.length}`;
+        }
+        // 输出 删除文件 信息
+        if (progressStat.delLogs.length) {
+            headlineStr = `${headlineStr} ${typeInfo.del.shortColor(typeInfo.del.shortName)} ${progressStat.delLogs.length}`;
+        }
+        // 输出 警告 信息
+        if (progressStat.warnLogs.length) {
+            headlineStr = `${headlineStr} ${typeInfo.warn.shortColor(typeInfo.warn.shortName)} ${progressStat.warnLogs.length}`;
+        }
+        // 输出 错误 信息
+        if (progressStat.errorLogs.length) {
+            headlineStr = `${headlineStr} ${typeInfo.error.shortColor(typeInfo.error.shortName)} ${progressStat.errorLogs.length}`;
+        }
+        return headlineStr;
+    }
     /** 私有方法 - 更新 progress */
     updateProgress() {
-        const { progressStat, logLevel, lite, progressInfo } = this;
+        const { progressStat, logLevel, lite, progressInfo, typeInfo } = this;
         if (!progressStat.progressing) {
             return [];
         }
+        // prefix
         const frameLength = lite ? progressInfo.shortIcons.length : progressInfo.icons.length;
         const frameCurrent = (progressStat.frameCurrent + 1) % frameLength;
         const name = lite
             ? progressInfo.shortIcons[frameCurrent]
             : ` ${progressInfo.icons[frameCurrent]} `;
         const color = lite ? progressInfo.shortColor : progressInfo.color;
-        let lastTypeInfo = this.typeInfo.info;
+        // headline
+        const headlineStr = this.getProgressHeadline();
+        // last type
+        let lastTypeInfo = typeInfo.info;
         const lastType = toCtx(progressStat.lastType);
-        if (lastType in this.typeInfo) {
-            lastTypeInfo = this.typeInfo[lastType];
+        if (lastType in typeInfo) {
+            lastTypeInfo = typeInfo[lastType];
         }
         const lastTypeStr = lastTypeInfo.shortColor(lastTypeInfo.shortName);
-        lastTypeInfo = this.typeInfo[lastType];
+        lastTypeInfo = typeInfo[lastType];
         const r = this.formatLog({
             name,
             color,
-            args: [lastTypeStr].concat(progressStat.lastLogs)
+            args: [headlineStr, lastTypeStr].concat(progressStat.lastLogs)
         });
         // print
         if (logLevel !== 0) {
@@ -2231,6 +2265,49 @@ class YylCmdLogger {
         // 记录 log 占用行数
         progressStat.lastRowsCount = r.length;
         progressStat.frameCurrent = frameCurrent;
+        return r;
+    }
+    /** progress finished 处理函数 */
+    finishedProgress() {
+        const { logLevel, progressStat } = this;
+        // 清除计时器
+        if (this.progressStat.intervalKey) {
+            clearInterval(this.progressStat.intervalKey);
+        }
+        // 状态复位
+        this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
+        const headlineStr = this.getProgressHeadline();
+        // print
+        if (logLevel !== 0) {
+            const stream = process.stderr;
+            let padding = progressStat.lastRowsCount || 0;
+            while (padding) {
+                readline__default['default'].moveCursor(stream, 0, -1);
+                readline__default['default'].clearLine(stream, 1);
+                padding--;
+            }
+            readline__default['default'].clearLine(process.stderr, 1);
+            readline__default['default'].cursorTo(process.stderr, 0);
+        }
+        const isError = this.progressStat.errorLogs.length > 0;
+        const logType = isError ? 'error' : 'success';
+        let logs = [headlineStr];
+        if (isError) {
+            this.progressStat.errorLogs.forEach((args) => {
+                logs = logs.concat(args);
+            });
+        }
+        else {
+            this.progressStat.successLogs.forEach((args) => {
+                logs = logs.concat(args);
+            });
+        }
+        let r = this.log(logType, logs);
+        if (!isError && this.progressStat.warnLogs.length > 0) {
+            this.progressStat.warnLogs.forEach((args) => {
+                r = r.concat(this.log('warn', args));
+            });
+        }
         return r;
     }
     /** 格式化日志 */
@@ -2293,6 +2370,15 @@ class YylCmdLogger {
             case 'success':
                 progressStat.successLogs.push(args);
                 break;
+            case 'update':
+                progressStat.updateLogs.push(args);
+                break;
+            case 'add':
+                progressStat.addLogs.push(args);
+                break;
+            case 'remove':
+                progressStat.delLogs.push(args);
+                break;
         }
         progressStat.lastLogs = args;
         progressStat.lastType = type;
@@ -2311,11 +2397,7 @@ class YylCmdLogger {
         }
         else if (status === 'finished') {
             // 退出 progress 模式
-            if (this.progressStat.intervalKey) {
-                clearInterval(this.progressStat.intervalKey);
-            }
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
-            // TODO: 输出 success、 warn、 error、信息
+            this.finishedProgress();
         }
         else {
             // 更新 progress 进度

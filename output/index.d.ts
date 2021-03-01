@@ -75,6 +75,12 @@ export interface ProgressStat<T extends string = ''> {
     errorLogs: any[][];
     /** warn logs 内容 */
     warnLogs: any[][];
+    /** 新增文件 logs 内容 */
+    addLogs: any[][];
+    /** 更新文件 logs 内容 */
+    updateLogs: any[][];
+    /** 删除文件 logs 内容 */
+    delLogs: any[][];
     /** 最后一个 log 类型 */
     lastType: LogType | T;
     /** 最后一个log行数 */
@@ -95,8 +101,12 @@ export declare class YylCmdLogger<T extends string = ''> {
     columnSize: YylCmdLoggerProperty['colunmSize'];
     progressStat: ProgressStat<T>;
     constructor(op?: YylCmdLoggerOption);
+    /** 获取 progress headline */
+    protected getProgressHeadline(): string;
     /** 私有方法 - 更新 progress */
     protected updateProgress(): string[];
+    /** progress finished 处理函数 */
+    protected finishedProgress(): string[];
     /** 格式化日志 */
     protected formatLog(op: FormatLogOption): string[];
     protected addProgressLog(type: LogType | T, args: any[]): string[];
