@@ -329,3 +329,5 @@ export class YylCmdLogger<T extends string = ''> {
     return r
   }
 }
+
+module.exports = YylCmdLogger

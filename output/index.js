@@ -2290,5 +2290,6 @@ class YylCmdLogger {
         return r;
     }
 }
+module.exports = YylCmdLogger;
 
 exports.YylCmdLogger = YylCmdLogger;
