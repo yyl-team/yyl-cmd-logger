@@ -49,7 +49,7 @@ export interface YylCmdLoggerOption {
     /** 进度相关属性 */
     progressInfo?: ProgressInfo;
     /** cmd 一行长度,用于自测时使用 */
-    colunmSize?: number;
+    columnSize?: number;
 }
 /** log 格式化配置 */
 export interface FormatLogOption {
@@ -89,6 +89,8 @@ export interface ProgressStat<T extends string = ''> {
     frameCurrent: number;
     /** intervalkey */
     intervalKey: any;
+    /** 开始时间 */
+    startTime: number;
 }
 /** logger 对象 */
 export declare class YylCmdLogger<T extends string = ''> {
@@ -98,7 +100,7 @@ export declare class YylCmdLogger<T extends string = ''> {
     logLevel: YylCmdLoggerProperty['logLevel'];
     lite: YylCmdLoggerProperty['lite'];
     keywordHighlight: YylCmdLoggerProperty['keywordHighlight'];
-    columnSize: YylCmdLoggerProperty['colunmSize'];
+    columnSize: YylCmdLoggerProperty['columnSize'];
     progressStat: ProgressStat<T>;
     constructor(op?: YylCmdLoggerOption);
     /** 获取 progress headline */

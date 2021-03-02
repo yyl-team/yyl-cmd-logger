@@ -2197,7 +2197,8 @@ class YylCmdLogger {
             lastType: 'info',
             lastRowsCount: 0,
             frameCurrent: 0,
-            intervalKey: undefined
+            intervalKey: undefined,
+            startTime: 0
         };
         // 日志类型配置
         if (op === null || op === void 0 ? void 0 : op.type) {
@@ -2219,12 +2220,22 @@ class YylCmdLogger {
         if (op === null || op === void 0 ? void 0 : op.progressInfo) {
             this.progressInfo = Object.assign(Object.assign({}, this.progressInfo), op.progressInfo);
         }
+        // 行宽设置
+        if (op === null || op === void 0 ? void 0 : op.columnSize) {
+            this.columnSize = op.columnSize;
+        }
     }
     /** 获取 progress headline */
     getProgressHeadline() {
         const { progressStat, typeInfo } = this;
         const precentStr = Math.round(progressStat.percent * 1000) / 10;
+        const now = +new Date();
         let headlineStr = `${precentStr}%`;
+        // 输出 耗时
+        if (progressStat.startTime) {
+            const costStr = `${(now - progressStat.startTime) / 1000}s`;
+            headlineStr = `${headlineStr} ${costStr}`;
+        }
         // 输出 新增文件 信息
         if (progressStat.addLogs.length) {
             headlineStr = `${headlineStr} ${typeInfo.add.shortColor(typeInfo.add.shortName)} ${progressStat.addLogs.length}`;
@@ -2443,7 +2454,7 @@ class YylCmdLogger {
             if (this.progressStat.intervalKey) {
                 clearInterval(this.progressStat.intervalKey);
             }
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, intervalKey: setInterval(() => {
+            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, startTime: +new Date(), intervalKey: setInterval(() => {
                     this.updateProgress();
                 }, this.progressStat.interval) });
         }

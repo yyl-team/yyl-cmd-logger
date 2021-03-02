@@ -68,7 +68,7 @@ export interface YylCmdLoggerOption {
   /** 进度相关属性 */
   progressInfo?: ProgressInfo
   /** cmd 一行长度,用于自测时使用 */
-  colunmSize?: number
+  columnSize?: number
 }
 
 /** log 格式化配置 */
@@ -111,6 +111,8 @@ export interface ProgressStat<T extends string = ''> {
   frameCurrent: number
   /** intervalkey */
   intervalKey: any
+  /** 开始时间 */
+  startTime: number
 }
 
 /** logger 对象 */
@@ -190,7 +192,7 @@ export class YylCmdLogger<T extends string = ''> {
     开始: chalk.cyan
   }
 
-  columnSize: YylCmdLoggerProperty['colunmSize'] = COLUMNS
+  columnSize: YylCmdLoggerProperty['columnSize'] = COLUMNS
 
   progressStat: ProgressStat<T> = {
     progressing: false,
@@ -206,7 +208,8 @@ export class YylCmdLogger<T extends string = ''> {
     lastType: 'info',
     lastRowsCount: 0,
     frameCurrent: 0,
-    intervalKey: undefined
+    intervalKey: undefined,
+    startTime: 0
   }
 
   constructor(op?: YylCmdLoggerOption) {
@@ -242,13 +245,26 @@ export class YylCmdLogger<T extends string = ''> {
         ...op.progressInfo
       }
     }
+
+    // 行宽设置
+    if (op?.columnSize) {
+      this.columnSize = op.columnSize
+    }
   }
 
   /** 获取 progress headline */
   protected getProgressHeadline(): string {
     const { progressStat, typeInfo } = this
     const precentStr = Math.round(progressStat.percent * 1000) / 10
+    const now = +new Date()
     let headlineStr = `${precentStr}%`
+
+    // 输出 耗时
+    if (progressStat.startTime) {
+      const costStr = `${(now - progressStat.startTime) / 1000}s`
+      headlineStr = `${headlineStr} ${costStr}`
+    }
+
     // 输出 新增文件 信息
     if (progressStat.addLogs.length) {
       headlineStr = `${headlineStr} ${typeInfo.add.shortColor(typeInfo.add.shortName)} ${
@@ -524,6 +540,7 @@ export class YylCmdLogger<T extends string = ''> {
         warnLogs: [],
         percent: 0,
         progressing: true,
+        startTime: +new Date(),
         intervalKey: setInterval(() => {
           this.updateProgress()
         }, this.progressStat.interval)

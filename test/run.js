@@ -12,7 +12,7 @@ const logger = new YylCmdLogger({
   }
 })
 
-logger.setLogLevel(2)
+// logger.setLogLevel(2)
 
 logger.log('main', ['yyl 4.0.0'])
 logger.setProgress('start')
