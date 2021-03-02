@@ -176,7 +176,20 @@ export class YylCmdLogger<T extends string = ''> {
 
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
   lite: YylCmdLoggerProperty['lite'] = false
-  keywordHighlight: YylCmdLoggerProperty['keywordHighlight'] = {}
+  keywordHighlight: YylCmdLoggerProperty['keywordHighlight'] = {
+    finished: chalk.green,
+    failed: chalk.red,
+    start: chalk.cyan,
+    passed: chalk.green,
+    success: chalk.green,
+    完成: chalk.green,
+    成功: chalk.green,
+    失败: chalk.red,
+    错误: chalk.red,
+    出错: chalk.red,
+    开始: chalk.cyan
+  }
+
   columnSize: YylCmdLoggerProperty['colunmSize'] = COLUMNS
 
   progressStat: ProgressStat<T> = {

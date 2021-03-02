@@ -2169,7 +2169,19 @@ class YylCmdLogger {
         };
         this.logLevel = 1;
         this.lite = false;
-        this.keywordHighlight = {};
+        this.keywordHighlight = {
+            finished: source.green,
+            failed: source.red,
+            start: source.cyan,
+            passed: source.green,
+            success: source.green,
+            完成: source.green,
+            成功: source.green,
+            失败: source.red,
+            错误: source.red,
+            出错: source.red,
+            开始: source.cyan
+        };
         this.columnSize = COLUMNS;
         this.progressStat = {
             progressing: false,
