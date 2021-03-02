@@ -19,7 +19,7 @@ type 类型
 
 • **color**: ChalkFunction
 
-Defined in: [index.ts:23](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L23)
+Defined in: [index.ts:23](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L23)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 • **name**: *string*
 
-Defined in: [index.ts:21](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L21)
+Defined in: [index.ts:21](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L21)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **shortColor**: ChalkFunction
 
-Defined in: [index.ts:24](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L24)
+Defined in: [index.ts:24](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L24)
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 • **shortName**: *string*
 
-Defined in: [index.ts:22](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L22)
+Defined in: [index.ts:22](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L22)

@@ -18,7 +18,7 @@ log 格式化配置
 
 • **args**: *any*[]
 
-Defined in: [index.ts:78](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L78)
+Defined in: [index.ts:78](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L78)
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 • **color**: ChalkFunction
 
-Defined in: [index.ts:77](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L77)
+Defined in: [index.ts:77](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L77)
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 • **name**: *string*
 
-Defined in: [index.ts:76](https://github.com/jackness1208/yyl-cmd-logger/blob/663833b/src/index.ts#L76)
+Defined in: [index.ts:76](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L76)

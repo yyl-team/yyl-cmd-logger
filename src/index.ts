@@ -526,9 +526,14 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** 设置 progress 状态 */
   setProgress(status: ProgressStatus) {
+    const { progressStat } = this
     if (status === 'start') {
-      // 进入 progress 模式
+      // 防止多次 启动 progress
+      if (progressStat.progressing) {
+        return
+      }
 
+      // 进入 progress 模式
       if (this.progressStat.intervalKey) {
         clearInterval(this.progressStat.intervalKey)
       }

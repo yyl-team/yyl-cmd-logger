@@ -18,6 +18,7 @@ logger.log('main', ['yyl 4.0.0'])
 logger.setProgress('start')
 logger.log('info', ['test 开始'])
 logger.log('info', ['test 结束'])
+logger.setProgress('start')
 logger.log('info', ['test 完成'])
 logger.log('info', ['test 失败'])
 logger.log('info', ['test 错误'])
@@ -43,6 +44,7 @@ setTimeout(() => {
 }, 2000)
 
 setTimeout(() => {
+  logger.log('info', ['test 04'])
   logger.setProgress(0.7523415)
   // logger.log('error', ['test 02'])
   // logger.log('error', ['test 03'])
