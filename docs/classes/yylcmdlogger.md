@@ -59,7 +59,7 @@ Name | Type |
 
 **Returns:** [*YylCmdLogger*](yylcmdlogger.md)<T\>
 
-Defined in: [index.ts:214](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L214)
+Defined in: [index.ts:215](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L215)
 
 ## Properties
 
@@ -67,7 +67,7 @@ Defined in: [index.ts:214](https://github.com/jackness1208/yyl-cmd-logger/blob/4
 
 • **columnSize**: *number*
 
-Defined in: [index.ts:196](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L196)
+Defined in: [index.ts:197](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L197)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 • **keywordHighlight**: HighlightMap
 
-Defined in: [index.ts:182](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L182)
+Defined in: [index.ts:183](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L183)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 • **lite**: *boolean*= false
 
-Defined in: [index.ts:181](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L181)
+Defined in: [index.ts:182](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L182)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 • **logLevel**: [*LogLevel*](../modules.md#loglevel)= 1
 
-Defined in: [index.ts:180](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L180)
+Defined in: [index.ts:181](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L181)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 progress icon 信息
 
-Defined in: [index.ts:173](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L173)
+Defined in: [index.ts:174](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L174)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 • **progressStat**: [*ProgressStat*](../interfaces/progressstat.md)<T\>
 
-Defined in: [index.ts:198](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L198)
+Defined in: [index.ts:199](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L199)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 • **typeInfo**: [*TypeInfo*](../interfaces/typeinfo.md)
 
-Defined in: [index.ts:121](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L121)
+Defined in: [index.ts:122](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L122)
 
 ## Methods
 
@@ -134,7 +134,7 @@ Name | Type |
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:464](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L464)
+Defined in: [index.ts:470](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L470)
 
 ___
 
@@ -146,7 +146,7 @@ progress finished 处理函数
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:358](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L358)
+Defined in: [index.ts:359](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L359)
 
 ___
 
@@ -164,7 +164,7 @@ Name | Type |
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:417](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L417)
+Defined in: [index.ts:423](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L423)
 
 ___
 
@@ -187,7 +187,7 @@ Name | Type |
 `info` | [*TypeInfo*](../interfaces/typeinfo.md)[*string* \| *number* \| T] |
 `type` | *string* \| *number* \| T |
 
-Defined in: [index.ts:497](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L497)
+Defined in: [index.ts:503](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L503)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: [index.ts:257](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L257)
+Defined in: [index.ts:258](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L258)
 
 ___
 
@@ -218,7 +218,7 @@ Name | Type |
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:584](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L584)
+Defined in: [index.ts:590](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L590)
 
 ___
 
@@ -235,7 +235,7 @@ Name | Type |
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:510](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L510)
+Defined in: [index.ts:516](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L516)
 
 ___
 
@@ -253,7 +253,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [index.ts:579](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L579)
+Defined in: [index.ts:585](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L585)
 
 ___
 
@@ -273,7 +273,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [index.ts:531](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L531)
+Defined in: [index.ts:537](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L537)
 
 ___
 
@@ -285,4 +285,4 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [index.ts:308](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L308)
+Defined in: [index.ts:309](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L309)

@@ -23,7 +23,7 @@ logger - 配置
 
 cmd 一行长度,用于自测时使用
 
-Defined in: [index.ts:72](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L72)
+Defined in: [index.ts:73](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L73)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 关键字高亮
 
-Defined in: [index.ts:68](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L68)
+Defined in: [index.ts:69](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L69)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 是否进行 type 简化
 
-Defined in: [index.ts:64](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L64)
+Defined in: [index.ts:65](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L65)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 日志等级 0 - 没有, 1 - 简单, 2 - 详细
 
-Defined in: [index.ts:62](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L62)
+Defined in: [index.ts:63](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L63)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 进度相关属性
 
-Defined in: [index.ts:70](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L70)
+Defined in: [index.ts:71](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L71)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 附加 type
 
-Defined in: [index.ts:66](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L66)
+Defined in: [index.ts:67](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L67)

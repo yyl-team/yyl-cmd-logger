@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.3
+ * yyl-cmd-logger cjs 0.1.5
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -462,21 +462,25 @@ class YylCmdLogger {
         const isError = this.progressStat.errorLogs.length > 0;
         const logType = isError ? 'error' : 'success';
         let logs = [headlineStr];
-        if (isError) {
-            this.progressStat.errorLogs.forEach((args) => {
-                logs = logs.concat(args);
-            });
-        }
-        else {
-            this.progressStat.successLogs.forEach((args) => {
-                logs = logs.concat(args);
-            });
+        if (logLevel === 1) {
+            if (isError) {
+                this.progressStat.errorLogs.forEach((args) => {
+                    logs = logs.concat(args);
+                });
+            }
+            else {
+                this.progressStat.successLogs.forEach((args) => {
+                    logs = logs.concat(args);
+                });
+            }
         }
         let r = this.log(logType, logs);
-        if (!isError && this.progressStat.warnLogs.length > 0) {
-            this.progressStat.warnLogs.forEach((args) => {
-                r = r.concat(this.log('warn', args));
-            });
+        if (logLevel === 1) {
+            if (!isError && this.progressStat.warnLogs.length > 0) {
+                this.progressStat.warnLogs.forEach((args) => {
+                    r = r.concat(this.log('warn', args));
+                });
+            }
         }
         return r;
     }
