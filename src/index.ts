@@ -1,5 +1,6 @@
 import chalk, { ChalkFunction } from 'chalk'
 import readline from 'readline'
+import { event } from '../typing/global'
 import { COLUMNS } from './const'
 import {
   getStrSize,
@@ -394,21 +395,26 @@ export class YylCmdLogger<T extends string = ''> {
     const isError = this.progressStat.errorLogs.length > 0
     const logType = isError ? 'error' : 'success'
     let logs: any[] = [headlineStr]
-    if (isError) {
-      this.progressStat.errorLogs.forEach((args) => {
-        logs = logs.concat(args)
-      })
-    } else {
-      this.progressStat.successLogs.forEach((args) => {
-        logs = logs.concat(args)
-      })
+
+    if (logLevel === 1) {
+      if (isError) {
+        this.progressStat.errorLogs.forEach((args) => {
+          logs = logs.concat(args)
+        })
+      } else {
+        this.progressStat.successLogs.forEach((args) => {
+          logs = logs.concat(args)
+        })
+      }
     }
 
     let r = this.log(logType, logs)
-    if (!isError && this.progressStat.warnLogs.length > 0) {
-      this.progressStat.warnLogs.forEach((args) => {
-        r = r.concat(this.log('warn', args))
-      })
+    if (logLevel === 1) {
+      if (!isError && this.progressStat.warnLogs.length > 0) {
+        this.progressStat.warnLogs.forEach((args) => {
+          r = r.concat(this.log('warn', args))
+        })
+      }
     }
     return r
   }

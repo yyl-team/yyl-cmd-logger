@@ -30,7 +30,7 @@
 
 Ƭ **LogLevel**: *0* \| *1* \| *2*
 
-Defined in: [index.ts:16](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L16)
+Defined in: [index.ts:17](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L17)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 日志类型
 
-Defined in: [index.ts:42](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L42)
+Defined in: [index.ts:43](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L43)
 
 ___
 
@@ -48,4 +48,4 @@ ___
 
 Ƭ **ProgressStatus**: *start* \| *finished* \| *number*
 
-Defined in: [index.ts:18](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L18)
+Defined in: [index.ts:19](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L19)

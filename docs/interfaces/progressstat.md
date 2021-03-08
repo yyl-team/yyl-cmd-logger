@@ -38,7 +38,7 @@ Name | Type | Default |
 
 新增文件 logs 内容
 
-Defined in: [index.ts:102](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L102)
+Defined in: [index.ts:103](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L103)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 删除文件 logs 内容
 
-Defined in: [index.ts:106](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L106)
+Defined in: [index.ts:107](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L107)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 error logs 内容
 
-Defined in: [index.ts:98](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L98)
+Defined in: [index.ts:99](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L99)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 当前 icon 帧数
 
-Defined in: [index.ts:112](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L112)
+Defined in: [index.ts:113](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L113)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 刷新间隔
 
-Defined in: [index.ts:92](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L92)
+Defined in: [index.ts:93](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L93)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 intervalkey
 
-Defined in: [index.ts:114](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L114)
+Defined in: [index.ts:115](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L115)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 最后一个 log 内容
 
-Defined in: [index.ts:94](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L94)
+Defined in: [index.ts:95](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L95)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 最后一个log行数
 
-Defined in: [index.ts:110](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L110)
+Defined in: [index.ts:111](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L111)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 最后一个 log 类型
 
-Defined in: [index.ts:108](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L108)
+Defined in: [index.ts:109](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L109)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 执行百分比
 
-Defined in: [index.ts:90](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L90)
+Defined in: [index.ts:91](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L91)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 是否正在执行
 
-Defined in: [index.ts:88](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L88)
+Defined in: [index.ts:89](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L89)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 开始时间
 
-Defined in: [index.ts:116](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L116)
+Defined in: [index.ts:117](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L117)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 success logs 内容
 
-Defined in: [index.ts:96](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L96)
+Defined in: [index.ts:97](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L97)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 更新文件 logs 内容
 
-Defined in: [index.ts:104](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L104)
+Defined in: [index.ts:105](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L105)
 
 ___
 
@@ -178,4 +178,4 @@ ___
 
 warn logs 内容
 
-Defined in: [index.ts:100](https://github.com/jackness1208/yyl-cmd-logger/blob/4c2c8d6/src/index.ts#L100)
+Defined in: [index.ts:101](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L101)
