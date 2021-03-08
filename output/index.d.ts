@@ -119,7 +119,7 @@ export declare class YylCmdLogger<T extends string = ''> {
     };
     protected normalLog(type: LogType | T, args: any[]): string[];
     /** 设置 progress 状态 */
-    setProgress(status: ProgressStatus): void;
+    setProgress(status: ProgressStatus, type?: LogType | T, args?: any[]): void;
     /** 设置日志等级 */
     setLogLevel(level: LogLevel): void;
     /** 日志输出 */

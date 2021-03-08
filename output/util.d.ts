@@ -41,7 +41,7 @@ export declare const cost: {
     end(): number;
     format(total: number): string;
 };
-export declare function timeFormat(t: any): string;
+export declare function timeFormat(t?: any): string;
 export declare function dateFormat(t: any): string;
 /** 关键字高亮 map */
 export interface HighlightMap {

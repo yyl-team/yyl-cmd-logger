@@ -15,6 +15,9 @@ const logger = new YylCmdLogger({
 // logger.setLogLevel(2)
 
 logger.log('main', ['yyl 4.0.0'])
+logger.setProgress(0.11, 'info', ['beforeRun'])
+logger.setProgress(0.12, 'info', ['beforeRun'])
+logger.setProgress(0.22, 'info', ['beforeRun'])
 logger.setProgress('start')
 logger.log('info', ['test 开始'])
 logger.log('info', ['test 结束'])
@@ -34,25 +37,20 @@ logger.log('info', ['test 02'])
 logger.log('warn', ['test 02'])
 logger.log('success', ['test 02'])
 setTimeout(() => {
-  logger.setProgress(0.25)
-  logger.log('success', ['test 02'])
+  logger.setProgress(0.25, 'info', ['test 02'])
+  // logger.log('success', ['test 02'])
 }, 1000)
 
 setTimeout(() => {
-  logger.setProgress(0.512356)
-  logger.log('warn', ['test 03'])
+  logger.setProgress(0.512356, 'warn', ['test 03'])
 }, 2000)
 
 setTimeout(() => {
-  logger.log('info', ['test 04'])
-  logger.setProgress(0.7523415)
-  // logger.log('error', ['test 02'])
-  // logger.log('error', ['test 03'])
-  // logger.log('error', ['test 04'])
-  // logger.log('error', ['test 05'])
+  logger.setProgress(0.7523415, 'info', ['test 04'])
 }, 3000)
 
 setTimeout(() => {
-  logger.setProgress('finished')
-  logger.log('success', ['task finished'])
+  logger.setProgress('finished', 'success', ['task finished'])
+  logger.setProgress(0.22, 'info', ['beforeRun'])
+  logger.setProgress(0.25, 'info', ['beforeRun'])
 }, 4000)
