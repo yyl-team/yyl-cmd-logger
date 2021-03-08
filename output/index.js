@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.2
+ * yyl-cmd-logger cjs 0.1.3
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -590,7 +590,7 @@ class YylCmdLogger {
         if (status === 'start') {
             // 防止多次 启动 progress
             if (progressStat.progressing) {
-                if (args && type) {
+                if (args && type && this.logLevel === 1) {
                     this.log(type, args);
                 }
                 return;
@@ -604,7 +604,7 @@ class YylCmdLogger {
                 }, this.progressStat.interval) });
         }
         else if (status === 'finished') {
-            if (type && args && this.progressStat.progressing) {
+            if (type && args && this.progressStat.progressing && this.logLevel === 1) {
                 this.log(type, args);
             }
             // 退出 progress 模式
@@ -613,7 +613,7 @@ class YylCmdLogger {
         else {
             // 更新 progress 进度
             this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
-            if (type && args && this.progressStat.progressing) {
+            if (type && args && this.progressStat.progressing && this.logLevel === 1) {
                 this.log(type, args);
             }
         }
@@ -626,6 +626,9 @@ class YylCmdLogger {
     /** 日志输出 */
     log(type, args) {
         const { progressStat, logLevel } = this;
+        if (!args) {
+            return [];
+        }
         if (progressStat.progressing) {
             if (logLevel === 1) {
                 return this.addProgressLog(type, args);

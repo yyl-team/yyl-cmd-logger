@@ -533,7 +533,7 @@ export class YylCmdLogger<T extends string = ''> {
     if (status === 'start') {
       // 防止多次 启动 progress
       if (progressStat.progressing) {
-        if (args && type) {
+        if (args && type && this.logLevel === 1) {
           this.log(type, args)
         }
         return
@@ -557,7 +557,7 @@ export class YylCmdLogger<T extends string = ''> {
         }, this.progressStat.interval)
       }
     } else if (status === 'finished') {
-      if (type && args && this.progressStat.progressing) {
+      if (type && args && this.progressStat.progressing && this.logLevel === 1) {
         this.log(type, args)
       }
       // 退出 progress 模式
@@ -568,7 +568,7 @@ export class YylCmdLogger<T extends string = ''> {
         ...this.progressStat,
         percent: status
       }
-      if (type && args && this.progressStat.progressing) {
+      if (type && args && this.progressStat.progressing && this.logLevel === 1) {
         this.log(type, args)
       }
     }
@@ -583,6 +583,9 @@ export class YylCmdLogger<T extends string = ''> {
   /** 日志输出 */
   log(type: LogType | T, args: any[]): string[] {
     const { progressStat, logLevel } = this
+    if (!args) {
+      return []
+    }
 
     if (progressStat.progressing) {
       if (logLevel === 1) {
