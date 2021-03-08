@@ -19,7 +19,7 @@
 
 长版 颜色
 
-Defined in: [index.ts:53](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L53)
+Defined in: [index.ts:54](https://github.com/jackness1208/yyl-cmd-logger/blob/a173a3f/src/index.ts#L54)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 长版 icon
 
-Defined in: [index.ts:49](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L49)
+Defined in: [index.ts:50](https://github.com/jackness1208/yyl-cmd-logger/blob/a173a3f/src/index.ts#L50)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 简版 颜色
 
-Defined in: [index.ts:55](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L55)
+Defined in: [index.ts:56](https://github.com/jackness1208/yyl-cmd-logger/blob/a173a3f/src/index.ts#L56)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 简版 icon
 
-Defined in: [index.ts:51](https://github.com/jackness1208/yyl-cmd-logger/blob/fe68697/src/index.ts#L51)
+Defined in: [index.ts:52](https://github.com/jackness1208/yyl-cmd-logger/blob/a173a3f/src/index.ts#L52)

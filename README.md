@@ -1,11 +1,15 @@
 # yyl-cmd-logger
+
 ## 安装
+
 ```
 yarn add yyl-cmd-logger
 ```
 
 ## 使用
+
 ### 一般使用
+
 ```typescript
 import YylCmdLogger from 'yyl-cmd-logger'
 const logger = new YylCmdLogger()
@@ -27,6 +31,7 @@ logger.setProgress('finished')
 ```
 
 ### 进度功能
+
 ```typescript
 import YylCmdLogger from 'yyl-cmd-logger'
 const logger = new YylCmdLogger()
@@ -40,6 +45,7 @@ logger.setProgress('finished')
 ```
 
 ### 自定义 type
+
 ```typescript
 import YylCmdLogger from 'yyl-cmd-logger'
 import chalk from 'chalk'
@@ -58,4 +64,5 @@ logger.log('main', ['v1.0.0'])
 ```
 
 ### 文档
+
 [这里](./docs/modules.md)

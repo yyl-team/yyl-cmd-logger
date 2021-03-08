@@ -9,7 +9,8 @@ import {
   HighlightMap,
   highlight,
   makeSpace,
-  printLog
+  printLog,
+  timeFormat
 } from './util'
 
 export type LogLevel = 0 | 1 | 2
@@ -370,7 +371,9 @@ export class YylCmdLogger<T extends string = ''> {
       intervalKey: undefined
     }
 
-    const headlineStr = this.getProgressHeadline()
+    const headlineStr = `${this.getProgressHeadline()} ${chalk.green('at')} ${chalk.yellow(
+      timeFormat()
+    )}`
 
     // print
     if (logLevel !== 0) {
@@ -525,11 +528,14 @@ export class YylCmdLogger<T extends string = ''> {
   }
 
   /** 设置 progress 状态 */
-  setProgress(status: ProgressStatus) {
+  setProgress(status: ProgressStatus, type?: LogType | T, args?: any[]) {
     const { progressStat } = this
     if (status === 'start') {
       // 防止多次 启动 progress
       if (progressStat.progressing) {
+        if (args && type) {
+          this.log(type, args)
+        }
         return
       }
 
@@ -551,6 +557,9 @@ export class YylCmdLogger<T extends string = ''> {
         }, this.progressStat.interval)
       }
     } else if (status === 'finished') {
+      if (type && args && this.progressStat.progressing) {
+        this.log(type, args)
+      }
       // 退出 progress 模式
       this.finishedProgress()
     } else {
@@ -558,6 +567,9 @@ export class YylCmdLogger<T extends string = ''> {
       this.progressStat = {
         ...this.progressStat,
         percent: status
+      }
+      if (type && args && this.progressStat.progressing) {
+        this.log(type, args)
       }
     }
     this.updateProgress()

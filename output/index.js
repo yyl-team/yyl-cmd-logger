@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.1
+ * yyl-cmd-logger cjs 0.1.2
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -186,6 +186,19 @@ function strWrap(str, size, indent) {
         }
     });
     return r;
+}
+function timeFormat(t) {
+    let r;
+    if (t) {
+        r = new Date(t);
+    }
+    else {
+        r = new Date();
+    }
+    if (isNaN(+r)) {
+        throw new Error(`print.timeFormat(t) error, t: ${t} is Invalid Date`);
+    }
+    return `${r}`.replace(/^.*(\d{2}:\d{2}:\d{2}).*$/, '$1');
 }
 /** 关键字高亮 */
 function highlight(str, keywordMap) {
@@ -431,7 +444,7 @@ class YylCmdLogger {
         }
         // 状态复位
         this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
-        const headlineStr = this.getProgressHeadline();
+        const headlineStr = `${this.getProgressHeadline()} ${chalk__default['default'].green('at')} ${chalk__default['default'].yellow(timeFormat())}`;
         // print
         if (logLevel !== 0) {
             const stream = process.stderr;
@@ -572,11 +585,14 @@ class YylCmdLogger {
         return r;
     }
     /** 设置 progress 状态 */
-    setProgress(status) {
+    setProgress(status, type, args) {
         const { progressStat } = this;
         if (status === 'start') {
             // 防止多次 启动 progress
             if (progressStat.progressing) {
+                if (args && type) {
+                    this.log(type, args);
+                }
                 return;
             }
             // 进入 progress 模式
@@ -588,12 +604,18 @@ class YylCmdLogger {
                 }, this.progressStat.interval) });
         }
         else if (status === 'finished') {
+            if (type && args && this.progressStat.progressing) {
+                this.log(type, args);
+            }
             // 退出 progress 模式
             this.finishedProgress();
         }
         else {
             // 更新 progress 进度
             this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
+            if (type && args && this.progressStat.progressing) {
+                this.log(type, args);
+            }
         }
         this.updateProgress();
     }

@@ -292,7 +292,7 @@ export const cost = {
   }
 }
 
-export function timeFormat(t: any) {
+export function timeFormat(t?: any) {
   let r
   if (t) {
     r = new Date(t)
