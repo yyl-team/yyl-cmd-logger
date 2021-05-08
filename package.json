@@ -56,7 +56,7 @@
   },
   "name": "yyl-cmd-logger",
   "repository": "https://github.com/jackness1208/yyl-cmd-logger.git",
-  "author": "liudaojie <liudaojie@yy.com>",
+  "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.0"
