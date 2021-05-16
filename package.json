@@ -1,5 +1,5 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.7",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "eslintConfig": {
@@ -32,9 +32,9 @@
     "d": "rollup --config ./rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
-    "prepublishOnly": "npm run prettier & npm test & npm run doc",
+    "prepublishOnly": "npm run prettier && npm test && npm run doc",
     "doc": "typedoc src/index.ts --plugin typedoc-plugin-markdown",
-    "test": "npm run build & jest ./test/jest/",
+    "test": "npm run build && jest ./test/jest/",
     "test:wrap": "jest ./test/jest/wrap.test.js"
   },
   "devDependencies": {
@@ -59,6 +59,7 @@
   "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^15.3.0",
     "chalk": "^4.1.0"
   }
 }

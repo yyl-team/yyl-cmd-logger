@@ -28,9 +28,9 @@
 
 ### LogLevel
 
-Ƭ **LogLevel**: *0* \| *1* \| *2*
+Ƭ **LogLevel**: ``0`` \| ``1`` \| ``2``
 
-Defined in: [index.ts:17](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L17)
+Defined in: [index.ts:17](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L17)
 
 ___
 
@@ -40,12 +40,12 @@ ___
 
 日志类型
 
-Defined in: [index.ts:43](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L43)
+Defined in: [index.ts:43](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L43)
 
 ___
 
 ### ProgressStatus
 
-Ƭ **ProgressStatus**: *start* \| *finished* \| *number*
+Ƭ **ProgressStatus**: ``"start"`` \| ``"finished"`` \| ``"forceFinished"`` \| *number*
 
-Defined in: [index.ts:19](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L19)
+Defined in: [index.ts:19](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L19)

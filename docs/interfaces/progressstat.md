@@ -6,9 +6,9 @@
 
 ## Type parameters
 
-Name | Type | Default |
-:------ | :------ | :------ |
-`T` | *string* | ** |
+| Name | Type | Default |
+| :------ | :------ | :------ |
+| `T` | *string* | ``""`` |
 
 ## Table of contents
 
@@ -26,6 +26,7 @@ Name | Type | Default |
 - [percent](progressstat.md#percent)
 - [progressing](progressstat.md#progressing)
 - [startTime](progressstat.md#starttime)
+- [startTimes](progressstat.md#starttimes)
 - [successLogs](progressstat.md#successlogs)
 - [updateLogs](progressstat.md#updatelogs)
 - [warnLogs](progressstat.md#warnlogs)
@@ -38,7 +39,7 @@ Name | Type | Default |
 
 新增文件 logs 内容
 
-Defined in: [index.ts:103](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L103)
+Defined in: [index.ts:103](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L103)
 
 ___
 
@@ -48,7 +49,7 @@ ___
 
 删除文件 logs 内容
 
-Defined in: [index.ts:107](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L107)
+Defined in: [index.ts:107](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L107)
 
 ___
 
@@ -58,7 +59,7 @@ ___
 
 error logs 内容
 
-Defined in: [index.ts:99](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L99)
+Defined in: [index.ts:99](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L99)
 
 ___
 
@@ -68,7 +69,7 @@ ___
 
 当前 icon 帧数
 
-Defined in: [index.ts:113](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L113)
+Defined in: [index.ts:113](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L113)
 
 ___
 
@@ -78,7 +79,7 @@ ___
 
 刷新间隔
 
-Defined in: [index.ts:93](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L93)
+Defined in: [index.ts:93](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L93)
 
 ___
 
@@ -88,7 +89,7 @@ ___
 
 intervalkey
 
-Defined in: [index.ts:115](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L115)
+Defined in: [index.ts:115](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L115)
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 最后一个 log 内容
 
-Defined in: [index.ts:95](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L95)
+Defined in: [index.ts:95](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L95)
 
 ___
 
@@ -108,7 +109,7 @@ ___
 
 最后一个log行数
 
-Defined in: [index.ts:111](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L111)
+Defined in: [index.ts:111](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L111)
 
 ___
 
@@ -118,7 +119,7 @@ ___
 
 最后一个 log 类型
 
-Defined in: [index.ts:109](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L109)
+Defined in: [index.ts:109](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L109)
 
 ___
 
@@ -128,7 +129,7 @@ ___
 
 执行百分比
 
-Defined in: [index.ts:91](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L91)
+Defined in: [index.ts:91](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L91)
 
 ___
 
@@ -138,7 +139,7 @@ ___
 
 是否正在执行
 
-Defined in: [index.ts:89](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L89)
+Defined in: [index.ts:89](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L89)
 
 ___
 
@@ -148,7 +149,17 @@ ___
 
 开始时间
 
-Defined in: [index.ts:117](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L117)
+Defined in: [index.ts:117](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L117)
+
+___
+
+### startTimes
+
+• **startTimes**: *number*
+
+start 次数（用于兼容嵌套 progress）
+
+Defined in: [index.ts:119](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L119)
 
 ___
 
@@ -158,7 +169,7 @@ ___
 
 success logs 内容
 
-Defined in: [index.ts:97](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L97)
+Defined in: [index.ts:97](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L97)
 
 ___
 
@@ -168,7 +179,7 @@ ___
 
 更新文件 logs 内容
 
-Defined in: [index.ts:105](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L105)
+Defined in: [index.ts:105](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L105)
 
 ___
 
@@ -178,4 +189,4 @@ ___
 
 warn logs 内容
 
-Defined in: [index.ts:101](https://github.com/jackness1208/yyl-cmd-logger/blob/30914cf/src/index.ts#L101)
+Defined in: [index.ts:101](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L101)

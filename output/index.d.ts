@@ -1,7 +1,7 @@
 import { ChalkFunction } from 'chalk';
 import { HighlightMap } from './util';
 export declare type LogLevel = 0 | 1 | 2;
-export declare type ProgressStatus = 'start' | 'finished' | number;
+export declare type ProgressStatus = 'start' | 'finished' | 'forceFinished' | number;
 /** type 类型 */
 export interface TypeObject {
     name: string;
@@ -91,6 +91,8 @@ export interface ProgressStat<T extends string = ''> {
     intervalKey: any;
     /** 开始时间 */
     startTime: number;
+    /** start 次数（用于兼容嵌套 progress） */
+    startTimes: number;
 }
 /** logger 对象 */
 export declare class YylCmdLogger<T extends string = ''> {
@@ -120,6 +122,8 @@ export declare class YylCmdLogger<T extends string = ''> {
     protected normalLog(type: LogType | T, args: any[]): string[];
     /** 设置 progress 状态 */
     setProgress(status: ProgressStatus, type?: LogType | T, args?: any[]): void;
+    /** 设置是否轻量log输出 */
+    setLite(isLite: boolean): void;
     /** 设置日志等级 */
     setLogLevel(level: LogLevel): void;
     /** 日志输出 */
