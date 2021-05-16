@@ -1,6 +1,5 @@
 import chalk, { ChalkFunction } from 'chalk'
 import readline from 'readline'
-import { event } from '../typing/global'
 import { COLUMNS } from './const'
 import {
   getStrSize,
@@ -16,7 +15,7 @@ import {
 
 export type LogLevel = 0 | 1 | 2
 
-export type ProgressStatus = 'start' | 'finished' | number
+export type ProgressStatus = 'start' | 'finished' | 'forceFinished' | number
 
 /** type 类型 */
 export interface TypeObject {
@@ -115,6 +114,8 @@ export interface ProgressStat<T extends string = ''> {
   intervalKey: any
   /** 开始时间 */
   startTime: number
+  /** start 次数（用于兼容嵌套 progress） */
+  startTimes: number
 }
 
 /** logger 对象 */
@@ -173,9 +174,9 @@ export class YylCmdLogger<T extends string = ''> {
   /** progress icon 信息 */
   progressInfo: Required<YylCmdLoggerProperty['progressInfo']> = {
     icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
-    shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
+    shortIcons: ['⠋', '⠙  ', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
     color: chalk.bgRed.white,
-    shortColor: chalk.red
+    shortColor: chalk.cyan
   }
 
   logLevel: YylCmdLoggerProperty['logLevel'] = 1
@@ -211,7 +212,8 @@ export class YylCmdLogger<T extends string = ''> {
     lastRowsCount: 0,
     frameCurrent: 0,
     intervalKey: undefined,
-    startTime: 0
+    startTime: 0,
+    startTimes: 0
   }
 
   constructor(op?: YylCmdLoggerOption) {
@@ -259,12 +261,17 @@ export class YylCmdLogger<T extends string = ''> {
     const { progressStat, typeInfo } = this
     const precentStr = Math.round(progressStat.percent * 1000) / 10
     const now = +new Date()
-    let headlineStr = `${precentStr}%`
+
+    // 完成百分比
+    let headlineStr = ''
+    if (precentStr) {
+      headlineStr = `${precentStr}% `
+    }
 
     // 输出 耗时
     if (progressStat.startTime) {
       const costStr = `${(now - progressStat.startTime) / 1000}s`
-      headlineStr = `${headlineStr} ${costStr}`
+      headlineStr = `${headlineStr}${costStr}`
     }
 
     // 输出 新增文件 信息
@@ -368,6 +375,7 @@ export class YylCmdLogger<T extends string = ''> {
     this.progressStat = {
       ...this.progressStat,
       percent: 1,
+      startTimes: 0,
       progressing: false,
       intervalKey: undefined
     }
@@ -421,6 +429,7 @@ export class YylCmdLogger<T extends string = ''> {
 
   /** 格式化日志 */
   protected formatLog(op: FormatLogOption) {
+    const { logLevel } = this
     const { name, color, args } = op
     const { keywordHighlight, columnSize } = this
     // 第一行标题
@@ -440,7 +449,11 @@ export class YylCmdLogger<T extends string = ''> {
         fArgs = fArgs.concat(strWrap(cnt, contentSize))
       } else if (iType === 'error') {
         const iCtx = toCtx<Error>(ctx)
-        fArgs = fArgs.concat(strWrap(iCtx.stack || iCtx.message, contentSize))
+        if (logLevel === 1) {
+          fArgs = fArgs.concat(strWrap(iCtx.message, contentSize))
+        } else {
+          fArgs = fArgs.concat(strWrap(iCtx.stack || iCtx.message, contentSize))
+        }
       } else if (iType === 'object') {
         const iCtx = toCtx<Object>(ctx)
         fArgs = fArgs.concat(strWrap(JSON.stringify(iCtx, null, 2), contentSize))
@@ -537,9 +550,10 @@ export class YylCmdLogger<T extends string = ''> {
   setProgress(status: ProgressStatus, type?: LogType | T, args?: any[]) {
     const { progressStat } = this
     if (status === 'start') {
+      progressStat.startTimes += 1
       // 防止多次 启动 progress
       if (progressStat.progressing) {
-        if (args && type && this.logLevel === 1) {
+        if (args && type) {
           this.log(type, args)
         }
         return
@@ -562,23 +576,44 @@ export class YylCmdLogger<T extends string = ''> {
           this.updateProgress()
         }, this.progressStat.interval)
       }
-    } else if (status === 'finished') {
-      if (type && args && this.progressStat.progressing && this.logLevel === 1) {
+      if (type && args) {
         this.log(type, args)
       }
+    } else if (status === 'finished') {
+      if (type && args && this.progressStat.progressing) {
+        this.log(type, args)
+      }
+      progressStat.startTimes -= 1
+      if (progressStat.startTimes <= 0) {
+        // 退出 progress 模式
+        this.finishedProgress()
+      }
+    } else if (status === 'forceFinished') {
+      // 强制结束
+      if (type && args && this.progressStat.progressing) {
+        this.log(type, args)
+      }
+      progressStat.startTimes = 0
       // 退出 progress 模式
       this.finishedProgress()
     } else {
-      // 更新 progress 进度
-      this.progressStat = {
-        ...this.progressStat,
-        percent: status
+      // 更新 progress 进度 (没嵌套时才更新进度、如正在处于 progress -> progress， 则忽略)
+      if (this.progressStat.startTimes === 1) {
+        this.progressStat = {
+          ...this.progressStat,
+          percent: status
+        }
       }
-      if (type && args && this.progressStat.progressing && this.logLevel === 1) {
+      if (type && args && this.progressStat.progressing) {
         this.log(type, args)
       }
     }
     this.updateProgress()
+  }
+
+  /** 设置是否轻量log输出 */
+  setLite(isLite: boolean) {
+    this.lite = !!isLite
   }
 
   /** 设置日志等级 */

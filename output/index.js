@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.5
+ * yyl-cmd-logger cjs 0.1.7
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -300,9 +300,9 @@ class YylCmdLogger {
         /** progress icon 信息 */
         this.progressInfo = {
             icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
-            shortIcons: ['L', 'O', 'A', 'D', 'I', 'N', 'G'],
+            shortIcons: ['⠋', '⠙  ', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
             color: chalk__default['default'].bgRed.white,
-            shortColor: chalk__default['default'].red
+            shortColor: chalk__default['default'].cyan
         };
         this.logLevel = 1;
         this.lite = false;
@@ -335,7 +335,8 @@ class YylCmdLogger {
             lastRowsCount: 0,
             frameCurrent: 0,
             intervalKey: undefined,
-            startTime: 0
+            startTime: 0,
+            startTimes: 0
         };
         // 日志类型配置
         if (op === null || op === void 0 ? void 0 : op.type) {
@@ -367,11 +368,15 @@ class YylCmdLogger {
         const { progressStat, typeInfo } = this;
         const precentStr = Math.round(progressStat.percent * 1000) / 10;
         const now = +new Date();
-        let headlineStr = `${precentStr}%`;
+        // 完成百分比
+        let headlineStr = '';
+        if (precentStr) {
+            headlineStr = `${precentStr}% `;
+        }
         // 输出 耗时
         if (progressStat.startTime) {
             const costStr = `${(now - progressStat.startTime) / 1000}s`;
-            headlineStr = `${headlineStr} ${costStr}`;
+            headlineStr = `${headlineStr}${costStr}`;
         }
         // 输出 新增文件 信息
         if (progressStat.addLogs.length) {
@@ -443,7 +448,7 @@ class YylCmdLogger {
             clearInterval(this.progressStat.intervalKey);
         }
         // 状态复位
-        this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, progressing: false, intervalKey: undefined });
+        this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: 1, startTimes: 0, progressing: false, intervalKey: undefined });
         const headlineStr = `${this.getProgressHeadline()} ${chalk__default['default'].green('at')} ${chalk__default['default'].yellow(timeFormat())}`;
         // print
         if (logLevel !== 0) {
@@ -486,6 +491,7 @@ class YylCmdLogger {
     }
     /** 格式化日志 */
     formatLog(op) {
+        const { logLevel } = this;
         const { name, color, args } = op;
         const { keywordHighlight, columnSize } = this;
         // 第一行标题
@@ -504,7 +510,12 @@ class YylCmdLogger {
             }
             else if (iType === 'error') {
                 const iCtx = toCtx(ctx);
-                fArgs = fArgs.concat(strWrap(iCtx.stack || iCtx.message, contentSize));
+                if (logLevel === 1) {
+                    fArgs = fArgs.concat(strWrap(iCtx.message, contentSize));
+                }
+                else {
+                    fArgs = fArgs.concat(strWrap(iCtx.stack || iCtx.message, contentSize));
+                }
             }
             else if (iType === 'object') {
                 const iCtx = toCtx(ctx);
@@ -592,9 +603,10 @@ class YylCmdLogger {
     setProgress(status, type, args) {
         const { progressStat } = this;
         if (status === 'start') {
+            progressStat.startTimes += 1;
             // 防止多次 启动 progress
             if (progressStat.progressing) {
-                if (args && type && this.logLevel === 1) {
+                if (args && type) {
                     this.log(type, args);
                 }
                 return;
@@ -606,22 +618,43 @@ class YylCmdLogger {
             this.progressStat = Object.assign(Object.assign({}, this.progressStat), { errorLogs: [], successLogs: [], warnLogs: [], percent: 0, progressing: true, startTime: +new Date(), intervalKey: setInterval(() => {
                     this.updateProgress();
                 }, this.progressStat.interval) });
-        }
-        else if (status === 'finished') {
-            if (type && args && this.progressStat.progressing && this.logLevel === 1) {
+            if (type && args) {
                 this.log(type, args);
             }
+        }
+        else if (status === 'finished') {
+            if (type && args && this.progressStat.progressing) {
+                this.log(type, args);
+            }
+            progressStat.startTimes -= 1;
+            if (progressStat.startTimes <= 0) {
+                // 退出 progress 模式
+                this.finishedProgress();
+            }
+        }
+        else if (status === 'forceFinished') {
+            // 强制结束
+            if (type && args && this.progressStat.progressing) {
+                this.log(type, args);
+            }
+            progressStat.startTimes = 0;
             // 退出 progress 模式
             this.finishedProgress();
         }
         else {
-            // 更新 progress 进度
-            this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
-            if (type && args && this.progressStat.progressing && this.logLevel === 1) {
+            // 更新 progress 进度 (没嵌套时才更新进度、如正在处于 progress -> progress， 则忽略)
+            if (this.progressStat.startTimes === 1) {
+                this.progressStat = Object.assign(Object.assign({}, this.progressStat), { percent: status });
+            }
+            if (type && args && this.progressStat.progressing) {
                 this.log(type, args);
             }
         }
         this.updateProgress();
+    }
+    /** 设置是否轻量log输出 */
+    setLite(isLite) {
+        this.lite = !!isLite;
     }
     /** 设置日志等级 */
     setLogLevel(level) {
