@@ -66,14 +66,18 @@ logger.log('main', ['v1.0.0'])
 ### 其他函数
 
 #### cleanScreen
+
 屏幕 clear
+
 ```typescript
 import { cleanScreen } from 'yyl-cmd-logger'
 cleanScreen()
 ```
 
 #### printHelp
+
 打印 help
+
 ```typescript
 import { printHelp } from 'yyl-cmd-logger'
 printHelp({

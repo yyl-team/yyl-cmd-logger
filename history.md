@@ -1,5 +1,9 @@
 # 版本变更
 
+## 0.2.1 (2021-05-23)
+
+- fix: 去掉 多余的 progress 空格
+
 ## 0.2.0 (2021-05-23)
 
 - feat: yylCmdLogger 改为 `import { YylCmdLogger } from 'yyl-cmd-logger'` 形式引入

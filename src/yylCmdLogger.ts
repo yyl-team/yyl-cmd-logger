@@ -174,7 +174,7 @@ export class YylCmdLogger<T extends string = ''> {
   /** progress icon 信息 */
   progressInfo: Required<YylCmdLoggerProperty['progressInfo']> = {
     icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
-    shortIcons: ['⠋', '⠙  ', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+    shortIcons: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
     color: chalk.bgRed.white,
     shortColor: chalk.cyan
   }

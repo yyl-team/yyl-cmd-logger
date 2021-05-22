@@ -21,7 +21,7 @@
 
 对齐方式
 
-Defined in: [util.ts:78](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/util.ts#L78)
+Defined in: [util.ts:78](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/util.ts#L78)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 所占字符数
 
-Defined in: [util.ts:76](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/util.ts#L76)
+Defined in: [util.ts:76](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/util.ts#L76)

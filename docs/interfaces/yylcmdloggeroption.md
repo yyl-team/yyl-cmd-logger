@@ -23,7 +23,7 @@ logger - 配置
 
 cmd 一行长度,用于自测时使用
 
-Defined in: [yylCmdLogger.ts:72](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L72)
+Defined in: [yylCmdLogger.ts:72](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L72)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 关键字高亮
 
-Defined in: [yylCmdLogger.ts:68](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L68)
+Defined in: [yylCmdLogger.ts:68](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L68)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 是否进行 type 简化
 
-Defined in: [yylCmdLogger.ts:64](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L64)
+Defined in: [yylCmdLogger.ts:64](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L64)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 日志等级 0 - 没有, 1 - 简单, 2 - 详细
 
-Defined in: [yylCmdLogger.ts:62](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L62)
+Defined in: [yylCmdLogger.ts:62](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L62)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 进度相关属性
 
-Defined in: [yylCmdLogger.ts:70](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L70)
+Defined in: [yylCmdLogger.ts:70](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L70)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 附加 type
 
-Defined in: [yylCmdLogger.ts:66](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L66)
+Defined in: [yylCmdLogger.ts:66](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L66)

@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.2.0
+ * yyl-cmd-logger cjs 0.2.1
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -540,7 +540,7 @@ class YylCmdLogger {
         /** progress icon 信息 */
         this.progressInfo = {
             icons: ['----', '---L', '-LOA', 'LOAD', 'OADI', 'ADIN', 'DING', 'ING-', 'NG--', 'G---'],
-            shortIcons: ['⠋', '⠙  ', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+            shortIcons: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
             color: chalk__default['default'].bgRed.white,
             shortColor: chalk__default['default'].cyan
         };
