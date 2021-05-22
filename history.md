@@ -1,6 +1,7 @@
 # 版本变更
 
 ## 0.2.0 (2021-05-23)
+
 - feat: yylCmdLogger 改为 `import { YylCmdLogger } from 'yyl-cmd-logger'` 形式引入
 - feat: 新增 `printHelp()`, `cleanScreen` 方法
 

@@ -19,7 +19,7 @@ type 类型
 
 • **color**: ChalkFunction
 
-Defined in: [index.ts:25](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L25)
+Defined in: [yylCmdLogger.ts:24](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L24)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 • **name**: *string*
 
-Defined in: [index.ts:23](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L23)
+Defined in: [yylCmdLogger.ts:22](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L22)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **shortColor**: ChalkFunction
 
-Defined in: [index.ts:26](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L26)
+Defined in: [yylCmdLogger.ts:25](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L25)
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 • **shortName**: *string*
 
-Defined in: [index.ts:24](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L24)
+Defined in: [yylCmdLogger.ts:23](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L23)

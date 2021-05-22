@@ -39,7 +39,7 @@
 
 新增文件 logs 内容
 
-Defined in: [index.ts:103](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L103)
+Defined in: [yylCmdLogger.ts:102](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L102)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 删除文件 logs 内容
 
-Defined in: [index.ts:107](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L107)
+Defined in: [yylCmdLogger.ts:106](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L106)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 error logs 内容
 
-Defined in: [index.ts:99](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L99)
+Defined in: [yylCmdLogger.ts:98](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L98)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 当前 icon 帧数
 
-Defined in: [index.ts:113](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L113)
+Defined in: [yylCmdLogger.ts:112](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L112)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 刷新间隔
 
-Defined in: [index.ts:93](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L93)
+Defined in: [yylCmdLogger.ts:92](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L92)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 intervalkey
 
-Defined in: [index.ts:115](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L115)
+Defined in: [yylCmdLogger.ts:114](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L114)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 最后一个 log 内容
 
-Defined in: [index.ts:95](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L95)
+Defined in: [yylCmdLogger.ts:94](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L94)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 最后一个log行数
 
-Defined in: [index.ts:111](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L111)
+Defined in: [yylCmdLogger.ts:110](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L110)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 最后一个 log 类型
 
-Defined in: [index.ts:109](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L109)
+Defined in: [yylCmdLogger.ts:108](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L108)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 执行百分比
 
-Defined in: [index.ts:91](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L91)
+Defined in: [yylCmdLogger.ts:90](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L90)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 是否正在执行
 
-Defined in: [index.ts:89](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L89)
+Defined in: [yylCmdLogger.ts:88](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L88)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 开始时间
 
-Defined in: [index.ts:117](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L117)
+Defined in: [yylCmdLogger.ts:116](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L116)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 start 次数（用于兼容嵌套 progress）
 
-Defined in: [index.ts:119](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L119)
+Defined in: [yylCmdLogger.ts:118](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L118)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 success logs 内容
 
-Defined in: [index.ts:97](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L97)
+Defined in: [yylCmdLogger.ts:96](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L96)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 更新文件 logs 内容
 
-Defined in: [index.ts:105](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L105)
+Defined in: [yylCmdLogger.ts:104](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L104)
 
 ___
 
@@ -189,4 +189,4 @@ ___
 
 warn logs 内容
 
-Defined in: [index.ts:101](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L101)
+Defined in: [yylCmdLogger.ts:100](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L100)

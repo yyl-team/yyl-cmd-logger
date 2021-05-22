@@ -17,7 +17,9 @@ export interface PrintHelpOption {
   /** options */
   options?: OptionObject
   /** 其他自定义 */
-  others?: OptionObject
+  others?: {
+    [handle: string]: OptionObject
+  }
 }
 
 /** 计算数组中最大长度 */
@@ -79,17 +81,25 @@ export const printHelp = function (op: PrintHelpOption) {
   }
 
   const baseIndent = 2
-  let r = []
+  let r: string[] = []
 
   if (op.usage) {
-    r.push(
-      textIndent(
-        `${chalk.yellow('Usage: ') + (op.usage || '')}${op.commands ? ' <commands>' : ''}${
-          op.options ? ' <options>' : ''
-        }`,
-        baseIndent
-      )
-    )
+    let usageStr = `${chalk.yellow('Usage:')} `
+    if (op.usage) {
+      usageStr = `${usageStr}${op.usage}`
+    }
+    if (op.commands) {
+      usageStr = `${usageStr} <commands>`
+    }
+    if (op.options) {
+      usageStr = `${usageStr} <options>`
+    }
+    r.push(textIndent(usageStr, baseIndent))
+  }
+  if (op.desc) {
+    r.push('')
+    r.push(textIndent(op.desc, baseIndent))
+    r.push('')
   }
 
   if (op.commands) {
@@ -98,6 +108,13 @@ export const printHelp = function (op: PrintHelpOption) {
 
   if (op.options) {
     r = r.concat(compose('Options', op.options, baseIndent))
+  }
+
+  if (op.others) {
+    Object.keys(op.others).forEach((key) => {
+      const options = (op.others as any)[key] as OptionObject
+      r = r.concat(compose(key, options, baseIndent))
+    })
   }
 
   r.push('')

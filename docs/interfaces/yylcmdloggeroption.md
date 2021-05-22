@@ -23,17 +23,17 @@ logger - 配置
 
 cmd 一行长度,用于自测时使用
 
-Defined in: [index.ts:73](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L73)
+Defined in: [yylCmdLogger.ts:72](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L72)
 
 ___
 
 ### keywordHighlight
 
-• `Optional` **keywordHighlight**: HighlightMap
+• `Optional` **keywordHighlight**: [*HighlightMap*](loggerutil.highlightmap.md)
 
 关键字高亮
 
-Defined in: [index.ts:69](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L69)
+Defined in: [yylCmdLogger.ts:68](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L68)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 是否进行 type 简化
 
-Defined in: [index.ts:65](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L65)
+Defined in: [yylCmdLogger.ts:64](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L64)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 日志等级 0 - 没有, 1 - 简单, 2 - 详细
 
-Defined in: [index.ts:63](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L63)
+Defined in: [yylCmdLogger.ts:62](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L62)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 进度相关属性
 
-Defined in: [index.ts:71](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L71)
+Defined in: [yylCmdLogger.ts:70](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L70)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 附加 type
 
-Defined in: [index.ts:67](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L67)
+Defined in: [yylCmdLogger.ts:66](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L66)

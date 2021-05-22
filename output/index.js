@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.7
+ * yyl-cmd-logger cjs 0.2.0
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -447,13 +447,34 @@ const printHelp = function (op) {
     const baseIndent = 2;
     let r = [];
     if (op.usage) {
-        r.push(textIndent(`${chalk__default['default'].yellow('Usage: ') + (op.usage || '')}${op.commands ? ' <commands>' : ''}${op.options ? ' <options>' : ''}`, baseIndent));
+        let usageStr = `${chalk__default['default'].yellow('Usage:')} `;
+        if (op.usage) {
+            usageStr = `${usageStr}${op.usage}`;
+        }
+        if (op.commands) {
+            usageStr = `${usageStr} <commands>`;
+        }
+        if (op.options) {
+            usageStr = `${usageStr} <options>`;
+        }
+        r.push(textIndent(usageStr, baseIndent));
+    }
+    if (op.desc) {
+        r.push('');
+        r.push(textIndent(op.desc, baseIndent));
+        r.push('');
     }
     if (op.commands) {
         r = r.concat(compose('Commands', op.commands, baseIndent));
     }
     if (op.options) {
         r = r.concat(compose('Options', op.options, baseIndent));
+    }
+    if (op.others) {
+        Object.keys(op.others).forEach((key) => {
+            const options = op.others[key];
+            r = r.concat(compose(key, options, baseIndent));
+        });
     }
     r.push('');
     r.unshift('');

@@ -14,6 +14,8 @@ export interface PrintHelpOption {
     /** options */
     options?: OptionObject;
     /** 其他自定义 */
-    others?: OptionObject;
+    others?: {
+        [handle: string]: OptionObject;
+    };
 }
 export declare const printHelp: (op: PrintHelpOption) => string[];

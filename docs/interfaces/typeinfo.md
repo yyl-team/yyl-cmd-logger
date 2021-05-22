@@ -29,7 +29,7 @@
 
 • **add**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:36](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L36)
+Defined in: [yylCmdLogger.ts:35](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L35)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **cmd**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:35](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L35)
+Defined in: [yylCmdLogger.ts:34](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L34)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **del**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:37](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L37)
+Defined in: [yylCmdLogger.ts:36](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L36)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **error**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:33](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L33)
+Defined in: [yylCmdLogger.ts:32](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L32)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 • **info**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:31](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L31)
+Defined in: [yylCmdLogger.ts:30](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L30)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 • **success**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:34](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L34)
+Defined in: [yylCmdLogger.ts:33](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L33)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 • **update**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:38](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L38)
+Defined in: [yylCmdLogger.ts:37](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L37)
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 • **warn**: [*TypeObject*](typeobject.md)
 
-Defined in: [index.ts:32](https://github.com/yyl-team/yyl-cmd-logger/blob/62650d1/src/index.ts#L32)
+Defined in: [yylCmdLogger.ts:31](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L31)
