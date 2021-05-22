@@ -60,7 +60,7 @@ logger 对象
 
 **Returns:** [*YylCmdLogger*](yylcmdlogger.md)<T\>
 
-Defined in: [yylCmdLogger.ts:217](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L217)
+Defined in: [yylCmdLogger.ts:217](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L217)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Defined in: [yylCmdLogger.ts:217](https://github.com/yyl-team/yyl-cmd-logger/blo
 
 • **columnSize**: *number*
 
-Defined in: [yylCmdLogger.ts:198](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L198)
+Defined in: [yylCmdLogger.ts:198](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L198)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • **keywordHighlight**: [*HighlightMap*](../interfaces/loggerutil.highlightmap.md)
 
-Defined in: [yylCmdLogger.ts:184](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L184)
+Defined in: [yylCmdLogger.ts:184](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L184)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • **lite**: *boolean*= false
 
-Defined in: [yylCmdLogger.ts:183](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L183)
+Defined in: [yylCmdLogger.ts:183](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L183)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 • **logLevel**: [*LogLevel*](../modules.md#loglevel)= 1
 
-Defined in: [yylCmdLogger.ts:182](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L182)
+Defined in: [yylCmdLogger.ts:182](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L182)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 progress icon 信息
 
-Defined in: [yylCmdLogger.ts:175](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L175)
+Defined in: [yylCmdLogger.ts:175](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L175)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 • **progressStat**: [*ProgressStat*](../interfaces/progressstat.md)<T\>
 
-Defined in: [yylCmdLogger.ts:200](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L200)
+Defined in: [yylCmdLogger.ts:200](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L200)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 • **typeInfo**: [*TypeInfo*](../interfaces/typeinfo.md)
 
-Defined in: [yylCmdLogger.ts:123](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L123)
+Defined in: [yylCmdLogger.ts:123](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L123)
 
 ## Methods
 
@@ -135,7 +135,7 @@ Defined in: [yylCmdLogger.ts:123](https://github.com/yyl-team/yyl-cmd-logger/blo
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:483](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L483)
+Defined in: [yylCmdLogger.ts:483](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L483)
 
 ___
 
@@ -147,7 +147,7 @@ progress finished 处理函数
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:366](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L366)
+Defined in: [yylCmdLogger.ts:366](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L366)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:431](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L431)
+Defined in: [yylCmdLogger.ts:431](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L431)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 | `info` | [*TypeInfo*](../interfaces/typeinfo.md)[*string* \| *number* \| T] |
 | `type` | *string* \| *number* \| T |
 
-Defined in: [yylCmdLogger.ts:516](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L516)
+Defined in: [yylCmdLogger.ts:516](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L516)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: [yylCmdLogger.ts:260](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L260)
+Defined in: [yylCmdLogger.ts:260](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L260)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:625](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L625)
+Defined in: [yylCmdLogger.ts:625](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L625)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:529](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L529)
+Defined in: [yylCmdLogger.ts:529](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L529)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [yylCmdLogger.ts:615](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L615)
+Defined in: [yylCmdLogger.ts:615](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L615)
 
 ___
 
@@ -272,7 +272,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [yylCmdLogger.ts:620](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L620)
+Defined in: [yylCmdLogger.ts:620](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L620)
 
 ___
 
@@ -292,7 +292,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [yylCmdLogger.ts:550](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L550)
+Defined in: [yylCmdLogger.ts:550](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L550)
 
 ___
 
@@ -304,4 +304,4 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [yylCmdLogger.ts:316](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L316)
+Defined in: [yylCmdLogger.ts:316](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L316)

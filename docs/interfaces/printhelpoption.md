@@ -23,7 +23,7 @@ help 信息 配置
 
 commands
 
-Defined in: [printHelp.ts:16](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L16)
+Defined in: [printHelp.ts:16](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L16)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 命令描述
 
-Defined in: [printHelp.ts:14](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L14)
+Defined in: [printHelp.ts:14](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L14)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 options
 
-Defined in: [printHelp.ts:18](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L18)
+Defined in: [printHelp.ts:18](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L18)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Type declaration
 
-Defined in: [printHelp.ts:20](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L20)
+Defined in: [printHelp.ts:20](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L20)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 静默输出
 
-Defined in: [printHelp.ts:10](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L10)
+Defined in: [printHelp.ts:10](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L10)
 
 ___
 
@@ -75,4 +75,4 @@ ___
 
 命令
 
-Defined in: [printHelp.ts:12](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L12)
+Defined in: [printHelp.ts:12](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L12)

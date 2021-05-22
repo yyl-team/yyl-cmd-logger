@@ -19,7 +19,7 @@
 
 • `Optional` **backLine**: *number*
 
-Defined in: [util.ts:373](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/util.ts#L373)
+Defined in: [util.ts:373](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/util.ts#L373)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **logs**: *string*[]
 
-Defined in: [util.ts:372](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/util.ts#L372)
+Defined in: [util.ts:372](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/util.ts#L372)

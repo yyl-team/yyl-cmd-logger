@@ -41,7 +41,7 @@
 
 Ƭ **LogLevel**: ``0`` \| ``1`` \| ``2``
 
-Defined in: [yylCmdLogger.ts:16](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L16)
+Defined in: [yylCmdLogger.ts:16](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L16)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 日志类型
 
-Defined in: [yylCmdLogger.ts:42](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L42)
+Defined in: [yylCmdLogger.ts:42](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L42)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 Ƭ **ProgressStatus**: ``"start"`` \| ``"finished"`` \| ``"forceFinished"`` \| *number*
 
-Defined in: [yylCmdLogger.ts:18](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L18)
+Defined in: [yylCmdLogger.ts:18](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L18)
 
 ## Functions
 
@@ -69,7 +69,7 @@ Defined in: [yylCmdLogger.ts:18](https://github.com/yyl-team/yyl-cmd-logger/blob
 
 **Returns:** *void*
 
-Defined in: [cleanScreen.ts:1](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/cleanScreen.ts#L1)
+Defined in: [cleanScreen.ts:1](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/cleanScreen.ts#L1)
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 **Returns:** *string*[]
 
-Defined in: [printHelp.ts:78](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/printHelp.ts#L78)
+Defined in: [printHelp.ts:78](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/printHelp.ts#L78)

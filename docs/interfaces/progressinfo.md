@@ -19,7 +19,7 @@
 
 长版 颜色
 
-Defined in: [yylCmdLogger.ts:54](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L54)
+Defined in: [yylCmdLogger.ts:54](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L54)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 长版 icon
 
-Defined in: [yylCmdLogger.ts:50](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L50)
+Defined in: [yylCmdLogger.ts:50](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L50)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 简版 颜色
 
-Defined in: [yylCmdLogger.ts:56](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L56)
+Defined in: [yylCmdLogger.ts:56](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L56)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 简版 icon
 
-Defined in: [yylCmdLogger.ts:52](https://github.com/yyl-team/yyl-cmd-logger/blob/6b5ae25/src/yylCmdLogger.ts#L52)
+Defined in: [yylCmdLogger.ts:52](https://github.com/yyl-team/yyl-cmd-logger/blob/7328353/src/yylCmdLogger.ts#L52)
