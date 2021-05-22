@@ -1,5 +1,5 @@
 /*!
- * yyl-cmd-logger cjs 0.1.7
+ * yyl-cmd-logger cjs 0.2.0
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -8,13 +8,18 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var chalk = require('chalk');
+var path = require('path');
 var readline = require('readline');
-require('path');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var chalk__default = /*#__PURE__*/_interopDefaultLegacy(chalk);
+var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var readline__default = /*#__PURE__*/_interopDefaultLegacy(readline);
+
+function cleanScreen() {
+    process.stdout.write('\x1Bc');
+}
 
 /* eslint-disable no-control-regex */
 let COLUMNS = process.stdout.columns || 80;
@@ -44,6 +49,19 @@ function type(ctx) {
         .replace(/^\[object (\w+)\]$/, '$1')
         .toLowerCase();
 }
+/** 隐藏 protocol 处理 */
+function hideProtocol(str) {
+    if (typeof str === 'string') {
+        return str.replace(/^http[s]?:/, '');
+    }
+    else {
+        return str;
+    }
+}
+/** 格式化路径 */
+function formatUrl(url) {
+    return url.split(path__default['default'].sep).join('/');
+}
 /** 关键字替换 */
 function replaceKeyword(str, keyword, result) {
     return str
@@ -69,6 +87,39 @@ function decolor(ctx) {
 function getStrSize(str) {
     const matchChats = str.match(CHINESE_REG) || [];
     return decolor(str).length + matchChats.length;
+}
+/** 格式化文字(居中, 左, 右) */
+function strAlign(str, op) {
+    const options = Object.assign({
+        size: 20,
+        align: 'left'
+    }, op);
+    const strLen = getStrSize(str);
+    if (strLen >= op.size) {
+        return str;
+    }
+    else if (options.align === 'right') {
+        return `${makeSpace(options.size - strLen)}${str}`;
+    }
+    else if (options.align === 'center') {
+        const isStrOdd = strLen % 2;
+        const isLenOdd = options.size % 2;
+        let spaceLeft = 0;
+        let spaceRight = 0;
+        if (isStrOdd === isLenOdd) {
+            // 同奇同偶
+            spaceLeft = spaceRight = (options.size - strLen) / 2;
+        }
+        else {
+            spaceLeft = Math.floor((options.size - strLen) / 2);
+            spaceRight = spaceLeft + 1;
+        }
+        return `${makeSpace(spaceLeft)}${str}${makeSpace(spaceRight)}`;
+    }
+    else {
+        // left
+        return `${str}${makeSpace(options.size - strLen)}`;
+    }
 }
 function substr(str, begin, len) {
     const dos = [];
@@ -187,6 +238,60 @@ function strWrap(str, size, indent) {
     });
     return r;
 }
+/** 切割文字为数组 */
+function splitStr(str, maxLen) {
+    const r = [];
+    if (!str) {
+        r.push('');
+    }
+    else if (getStrSize(str) <= maxLen) {
+        r.push(str);
+    }
+    else {
+        // 切割字符
+        let fragStr = str;
+        while (getStrSize(fragStr) > maxLen) {
+            r.push(substr(fragStr, 0, maxLen));
+            fragStr = substr(fragStr, maxLen);
+        }
+        if (getStrSize(fragStr) > 0) {
+            r.push(fragStr);
+        }
+    }
+    return r;
+}
+const cost = {
+    source: {
+        begin: 0,
+        total: 0
+    },
+    start() {
+        this.source.begin = +new Date();
+        return this.source.begin;
+    },
+    end() {
+        this.source.total = +new Date() - this.source.begin;
+        return this.source.total;
+    },
+    format(total) {
+        const cost = total || this.source.total;
+        const min = Math.floor(cost / 1000 / 60);
+        const sec = Math.floor(cost / 1000) % 60;
+        const us = cost % 1000;
+        let r = '';
+        if (min) {
+            r = `${r}${min}min`;
+        }
+        if (sec) {
+            r = `${r} ${sec}s`;
+        }
+        if (us) {
+            r = `${r} ${us}ms`;
+        }
+        r = r.trim();
+        return r;
+    }
+};
 function timeFormat(t) {
     let r;
     if (t) {
@@ -199,6 +304,31 @@ function timeFormat(t) {
         throw new Error(`print.timeFormat(t) error, t: ${t} is Invalid Date`);
     }
     return `${r}`.replace(/^.*(\d{2}:\d{2}:\d{2}).*$/, '$1');
+}
+function dateFormat(t) {
+    let r;
+    if (t) {
+        r = new Date(t);
+        if (typeof t === 'string' && !/:/.test(t)) {
+            r.setHours(0, 0, 0, 0);
+        }
+    }
+    else {
+        r = new Date();
+    }
+    if (isNaN(+r)) {
+        throw new Error(`print.dateFormat(t) error, t: ${t} is Invalid Date`);
+    }
+    const year = r.getFullYear();
+    let mon = `${r.getMonth() + 1}`;
+    if (+mon < 10) {
+        mon = `0${mon}`;
+    }
+    let date = `${r.getDate()}`;
+    if (+date < 10) {
+        date = `0${date}`;
+    }
+    return `${year}-${mon}-${date} ${self.timeFormat(r)}`;
 }
 /** 关键字高亮 */
 function highlight(str, keywordMap) {
@@ -243,6 +373,116 @@ function printLog(op) {
     // print
     console.log(r.join('\n'));
 }
+
+var util = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  buildChar: buildChar,
+  makeSpace: makeSpace,
+  isArray: isArray,
+  type: type,
+  hideProtocol: hideProtocol,
+  formatUrl: formatUrl,
+  replaceKeyword: replaceKeyword,
+  toCtx: toCtx,
+  decolor: decolor,
+  getStrSize: getStrSize,
+  strAlign: strAlign,
+  substr: substr,
+  strWrap: strWrap,
+  splitStr: splitStr,
+  cost: cost,
+  timeFormat: timeFormat,
+  dateFormat: dateFormat,
+  highlight: highlight,
+  getStrIndex: getStrIndex,
+  printLog: printLog
+});
+
+/** 计算数组中最大长度 */
+const accountMaxKeyLen = function (arr) {
+    let maxLen = 0;
+    Object.keys(arr).forEach((key) => {
+        if (maxLen < key.length) {
+            maxLen = key.length;
+        }
+    });
+    return maxLen;
+};
+/** 字符串 indent */
+const textIndent = function (txt, num) {
+    let r = '';
+    for (let i = 0, len = num; i < len; i++) {
+        r += ' ';
+    }
+    return r + txt;
+};
+const compose = function (ikey, arr, baseIndent) {
+    const r = [];
+    const maxkeyLen = accountMaxKeyLen(arr);
+    let i;
+    let len;
+    r.push('');
+    r.push(chalk__default['default'].yellow(textIndent(`${ikey}:`, baseIndent)));
+    Object.keys(arr).forEach((key) => {
+        if (isArray(arr[key])) {
+            const iArr = toCtx(arr[key]);
+            r.push(chalk__default['default'].gray(textIndent(key, baseIndent * 2)) +
+                textIndent(iArr.shift() || '', maxkeyLen - key.length + 2));
+            for (i = 0, len = arr[key].length; i < len; i++) {
+                r.push(textIndent(arr[key][i], maxkeyLen + 2 + baseIndent * 2));
+            }
+        }
+        else {
+            const iTxt = toCtx(arr[key]);
+            r.push(`${chalk__default['default'].gray(textIndent(key, baseIndent * 2))}${textIndent(iTxt, maxkeyLen - key.length + 2)}`);
+        }
+    });
+    r.push('');
+    return r;
+};
+const printHelp = function (op) {
+    if (!op) {
+        return [];
+    }
+    const baseIndent = 2;
+    let r = [];
+    if (op.usage) {
+        let usageStr = `${chalk__default['default'].yellow('Usage:')} `;
+        if (op.usage) {
+            usageStr = `${usageStr}${op.usage}`;
+        }
+        if (op.commands) {
+            usageStr = `${usageStr} <commands>`;
+        }
+        if (op.options) {
+            usageStr = `${usageStr} <options>`;
+        }
+        r.push(textIndent(usageStr, baseIndent));
+    }
+    if (op.desc) {
+        r.push('');
+        r.push(textIndent(op.desc, baseIndent));
+        r.push('');
+    }
+    if (op.commands) {
+        r = r.concat(compose('Commands', op.commands, baseIndent));
+    }
+    if (op.options) {
+        r = r.concat(compose('Options', op.options, baseIndent));
+    }
+    if (op.others) {
+        Object.keys(op.others).forEach((key) => {
+            const options = op.others[key];
+            r = r.concat(compose(key, options, baseIndent));
+        });
+    }
+    r.push('');
+    r.unshift('');
+    if (!op.silent) {
+        console.log(r.join('\n'));
+    }
+    return r;
+};
 
 /** logger 对象 */
 class YylCmdLogger {
@@ -678,6 +918,8 @@ class YylCmdLogger {
         return this.normalLog(type, args);
     }
 }
-module.exports = YylCmdLogger;
 
 exports.YylCmdLogger = YylCmdLogger;
+exports.cleanScreen = cleanScreen;
+exports.loggerUtil = util;
+exports.printHelp = printHelp;

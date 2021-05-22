@@ -1,4 +1,4 @@
-const YylCmdLogger = require('../../output')
+const { YylCmdLogger } = require('../../output')
 
 test('yyLogger.log() 信息类型测试', () => {
   const logger = new YylCmdLogger({
