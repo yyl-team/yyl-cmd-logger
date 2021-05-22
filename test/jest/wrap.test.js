@@ -1,4 +1,4 @@
-const YylCmdLogger = require('../../output')
+const { YylCmdLogger } = require('../../output')
 
 test('yyLogger.log() 非中文换行问题', () => {
   const logger = new YylCmdLogger({

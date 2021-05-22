@@ -35,7 +35,8 @@
     "prepublishOnly": "npm run prettier && npm test && npm run doc",
     "doc": "typedoc src/index.ts --plugin typedoc-plugin-markdown",
     "test": "npm run build && jest ./test/jest/",
-    "test:wrap": "jest ./test/jest/wrap.test.js"
+    "test:wrap": "jest ./test/jest/wrap.test.js",
+    "test:printHelp": "jest ./test/jest/printHelp.test.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
